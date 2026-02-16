@@ -10,6 +10,7 @@
 - [ ] #6: Improve Ingress (TLS, auth - optional for local dev)
 - [ ] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet)
 - [ ] #8: Host docs locally (instead of linking to GitHub)
+- [ ] #9: Codify ArgoCD (currently installed manually via quick-start.sh)
 
 ## File Server - Final Approach
 Nginx static file server using hostPath volume.
