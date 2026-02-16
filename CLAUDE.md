@@ -2,15 +2,21 @@
 
 ## Cleanup Tasks (Code Quality Pass)
 
-- [x] #1: Convert fileserver Pod to Deployment - PR #1 (in review)
-- [ ] #2: Pin image tags (nginx:latest → specific versions)
-- [ ] #3: Standardize labels (use app.kubernetes.io/* convention)
+- [x] #1: Convert fileserver Pod to Deployment - PR #1
+- [x] #2: Pin image tags (nginx:latest → specific versions) - PR #2
+- [x] #3: Standardize labels (use app.kubernetes.io/* convention) - PR #3
 - [ ] #4: Fix GitHub/localhost hardcoding (make manifests portable)
 - [ ] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem)
 - [ ] #6: Improve Ingress (TLS, auth - optional for local dev)
 - [ ] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet)
-- [ ] #8: Host docs locally (instead of linking to GitHub)
-- [ ] #9: Codify ArgoCD (currently installed manually via quick-start.sh)
+- [ ] #8: Codify ArgoCD (currently installed manually via quick-start.sh)
+
+## Docs Strategy
+
+- Removed docs-server pod and all separate documentation files
+- README.md now contains only tech stack summary and basic setup
+- Documentation maintained by Claude Code, not humans
+- Future: MCP server for Claude to query cluster state
 
 ## File Server - Final Approach
 Nginx static file server using hostPath volume.
