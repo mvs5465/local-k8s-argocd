@@ -8,7 +8,7 @@
 - [x] #4: Remove docs-server and unnecessary documentation - PR #4
 - [x] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem) - PR #5
 - [x] #6: Skip Ingress (port-forwarding sufficient for local dev)
-- [ ] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet)
+- [x] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet) - PR #6
 - [ ] #8: Codify ArgoCD (currently installed manually via quick-start.sh)
 
 ## Docs Strategy
