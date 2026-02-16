@@ -1,12 +1,6 @@
 ---
-# ArgoCD installation manifest
-# Based on: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-# Version: stable (as of task creation)
-#
-# Install with: kubectl apply -f manifests/argocd-install.yaml
-# Access UI: kubectl port-forward -n argocd svc/argocd-server 8080:443
-# Note: Authentication is disabled for local development
-
+# ArgoCD namespace definition
+# ArgoCD itself is installed via quick-start.sh by downloading the official manifest
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -14,63 +8,3 @@ metadata:
   labels:
     app.kubernetes.io/name: argocd
     app.kubernetes.io/part-of: argocd
-
----
-# Note: This is a simplified reference installation manifest.
-# For production use, obtain the official manifest from:
-# https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-#
-# To keep this lean for local dev, we pull the official stable manifest.
-# In a real scenario, you'd either:
-# 1. Commit the full official manifest
-# 2. Use Kustomize/Helm to install ArgoCD as an ArgoCD Application itself
-# 3. Use a release tool to manage the version
-
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: argocd-installer
-  namespace: argocd
-spec:
-  serviceAccountName: argocd-installer
-  restartPolicy: Never
-  template:
-    spec:
-      serviceAccountName: argocd-installer
-      containers:
-      - name: installer
-        image: bitnami/kubectl:1.30-debian-12
-        command:
-        - /bin/sh
-        - -c
-        - |
-          echo "Installing ArgoCD from official stable manifest..."
-          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-
-          echo "Patching ArgoCD server to disable auth..."
-          kubectl patch deployment argocd-server -n argocd --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/command/-", "value": "--disable-auth"}]'
-
-          echo "ArgoCD installation initiated. Waiting for controller..."
-          kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s || true
-          echo "Done"
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: argocd-installer
-  namespace: argocd
-
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: argocd-installer
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: argocd-installer
-  namespace: argocd

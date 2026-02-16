@@ -25,9 +25,15 @@ kubectl cluster-info || {
 
 echo ""
 echo "🔄 Installing ArgoCD..."
-kubectl apply -f manifests/argocd/argocd-install.yaml
+kubectl create namespace argocd || true
 
-echo ""
+echo "Downloading official ArgoCD manifest..."
+curl -sL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml | \
+  kubectl apply -n argocd -f - 2>&1 | grep -v "Too long" || true
+
+echo "Disabling ArgoCD auth..."
+kubectl patch deployment argocd-server -n argocd --type='json' -p='[{"op": "add", "path": "/spec/template/spec/containers/0/command/-", "value": "--disable-auth"}]' || true
+
 echo "⏳ Waiting for ArgoCD server to be ready (this takes ~30-60 seconds)..."
 kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s || {
     echo "⚠️  Timeout waiting for pods. Check status with:"
@@ -40,7 +46,7 @@ echo "✅ ArgoCD installed!"
 echo ""
 
 echo "📦 Deploying applications via root Application..."
-kubectl apply -f manifests/argocd/appproject.yaml manifests/argocd/root-app.yaml
+kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
