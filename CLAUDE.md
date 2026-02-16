@@ -7,7 +7,7 @@
 - [x] #3: Standardize labels (use app.kubernetes.io/* convention) - PR #3
 - [x] #4: Remove docs-server and unnecessary documentation - PR #4
 - [x] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem) - PR #5
-- [ ] #6: Improve Ingress (TLS, auth - optional for local dev)
+- [x] #6: Skip Ingress (port-forwarding sufficient for local dev)
 - [ ] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet)
 - [ ] #8: Codify ArgoCD (currently installed manually via quick-start.sh)
 
