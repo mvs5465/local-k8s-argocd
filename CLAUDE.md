@@ -5,8 +5,8 @@
 - [x] #1: Convert fileserver Pod to Deployment - PR #1
 - [x] #2: Pin image tags (nginx:latest → specific versions) - PR #2
 - [x] #3: Standardize labels (use app.kubernetes.io/* convention) - PR #3
-- [ ] #4: Fix GitHub/localhost hardcoding (make manifests portable)
-- [ ] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem)
+- [x] #4: Remove docs-server and unnecessary documentation - PR #4
+- [x] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem) - PR #5
 - [ ] #6: Improve Ingress (TLS, auth - optional for local dev)
 - [ ] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet)
 - [ ] #8: Codify ArgoCD (currently installed manually via quick-start.sh)
