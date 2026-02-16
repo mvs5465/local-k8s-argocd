@@ -216,17 +216,6 @@ data:
             </a>
           </div>
 
-          <!-- kubectl Commands -->
-          <div class="service-card">
-            <div class="service-icon">⌨️</div>
-            <div class="service-title">Quick Commands</div>
-            <div class="service-description">Common kubectl operations.</div>
-            <div style="margin-top: auto; font-family: monospace; font-size: 0.85em;">
-              <div style="margin: 5px 0; color: #00d084;">kubectl get pods -A</div>
-              <div style="margin: 5px 0; color: #00d084;">kubectl logs -f pod</div>
-              <div style="margin: 5px 0; color: #00d084;">kubectl describe pod</div>
-            </div>
-          </div>
         </div>
 
         <footer>

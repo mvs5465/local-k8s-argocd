@@ -20,18 +20,16 @@ data:
         }
 
         body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
           background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
           color: #e0e0e0;
           min-height: 100vh;
-          display: flex;
-          flex-direction: column;
         }
 
         .header {
           background: rgba(0, 0, 0, 0.3);
           border-bottom: 1px solid rgba(0, 208, 132, 0.2);
-          padding: 20px;
+          padding: 30px 20px;
           text-align: center;
         }
 
@@ -43,170 +41,67 @@ data:
 
         .header p {
           color: #999;
-          font-size: 0.95em;
         }
 
         .container {
-          display: flex;
-          flex: 1;
-          max-width: 1400px;
+          max-width: 1000px;
           margin: 0 auto;
-          width: 100%;
+          padding: 40px 20px;
+        }
+
+        .doc-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
           gap: 20px;
-          padding: 20px;
+          margin-top: 30px;
         }
 
-        .sidebar {
-          width: 250px;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(0, 208, 132, 0.1);
+        .doc-card {
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(0, 208, 132, 0.2);
           border-radius: 8px;
           padding: 20px;
-          height: fit-content;
-          max-height: calc(100vh - 150px);
-          overflow-y: auto;
-        }
-
-        .sidebar h3 {
-          color: #00d084;
-          margin-bottom: 15px;
-          font-size: 0.95em;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-        }
-
-        .sidebar ul {
-          list-style: none;
-        }
-
-        .sidebar li {
-          margin-bottom: 8px;
-        }
-
-        .sidebar a {
-          color: #aaa;
+          transition: all 0.3s;
           text-decoration: none;
-          font-size: 0.9em;
+          color: inherit;
           display: block;
-          padding: 5px 8px;
-          border-radius: 4px;
-          transition: all 0.2s;
         }
 
-        .sidebar a:hover {
+        .doc-card:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(0, 208, 132, 0.5);
+          transform: translateY(-3px);
+        }
+
+        .doc-title {
           color: #00d084;
-          background: rgba(0, 208, 132, 0.1);
-        }
-
-        .sidebar a.active {
-          color: #00d084;
-          background: rgba(0, 208, 132, 0.15);
-          border-left: 3px solid #00d084;
-          padding-left: 5px;
-        }
-
-        .content {
-          flex: 1;
-          background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(0, 208, 132, 0.1);
-          border-radius: 8px;
-          padding: 30px;
-          overflow-y: auto;
-          max-height: calc(100vh - 150px);
-        }
-
-        .markdown-body {
-          background: transparent;
-          color: #e0e0e0;
-          font-size: 1em;
-          line-height: 1.6;
-        }
-
-        .markdown-body h1 {
-          color: #00d084;
-          border-bottom: 2px solid rgba(0, 208, 132, 0.2);
-          padding-bottom: 10px;
-          margin-bottom: 20px;
-          font-size: 2em;
-        }
-
-        .markdown-body h2 {
-          color: #00d084;
-          margin-top: 25px;
-          margin-bottom: 15px;
-          font-size: 1.5em;
-        }
-
-        .markdown-body h3 {
-          color: #00d084;
-          margin-top: 20px;
-          margin-bottom: 10px;
           font-size: 1.2em;
+          font-weight: 600;
+          margin-bottom: 10px;
         }
 
-        .markdown-body code {
-          background: rgba(0, 0, 0, 0.3);
-          color: #00d084;
-          padding: 2px 6px;
-          border-radius: 3px;
-          font-family: 'Courier New', monospace;
-        }
-
-        .markdown-body pre {
-          background: rgba(0, 0, 0, 0.4);
-          border: 1px solid rgba(0, 208, 132, 0.1);
-          border-radius: 6px;
-          padding: 12px;
-          overflow-x: auto;
-        }
-
-        .markdown-body pre code {
-          background: none;
-          color: #00d084;
-          padding: 0;
-        }
-
-        .markdown-body blockquote {
-          border-left: 4px solid #00d084;
+        .doc-description {
           color: #aaa;
-          padding-left: 15px;
-          margin-left: 0;
+          font-size: 0.95em;
           margin-bottom: 15px;
         }
 
-        .markdown-body table {
-          border-collapse: collapse;
-          width: 100%;
-          margin: 15px 0;
-        }
-
-        .markdown-body table tr {
-          border-bottom: 1px solid rgba(0, 208, 132, 0.1);
-        }
-
-        .markdown-body table th {
-          background: rgba(0, 208, 132, 0.1);
+        .doc-link {
           color: #00d084;
-          padding: 10px;
-          text-align: left;
+          font-weight: 500;
+          display: inline-flex;
+          align-items: center;
+          margin-top: 10px;
         }
 
-        .markdown-body table td {
-          padding: 10px;
+        .doc-link::after {
+          content: " →";
+          margin-left: 5px;
         }
 
-        .markdown-body a {
-          color: #00d084;
-          text-decoration: none;
-        }
-
-        .markdown-body a:hover {
-          text-decoration: underline;
-        }
-
-        .back-to-dashboard {
+        .back-link {
           display: inline-block;
-          margin-bottom: 20px;
+          margin-bottom: 30px;
           padding: 8px 16px;
           background: rgba(0, 208, 132, 0.1);
           border: 1px solid rgba(0, 208, 132, 0.3);
@@ -216,46 +111,8 @@ data:
           font-size: 0.9em;
         }
 
-        .back-to-dashboard:hover {
+        .back-link:hover {
           background: rgba(0, 208, 132, 0.15);
-        }
-
-        .loading {
-          text-align: center;
-          padding: 40px;
-          color: #00d084;
-        }
-
-        ::-webkit-scrollbar {
-          width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-          background: rgba(0, 0, 0, 0.1);
-        }
-
-        ::-webkit-scrollbar-thumb {
-          background: rgba(0, 208, 132, 0.3);
-          border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(0, 208, 132, 0.5);
-        }
-
-        @media (max-width: 900px) {
-          .container {
-            flex-direction: column;
-          }
-
-          .sidebar {
-            width: 100%;
-            max-height: none;
-          }
-
-          .content {
-            max-height: none;
-          }
         }
       </style>
     </head>
@@ -266,465 +123,65 @@ data:
       </div>
 
       <div class="container">
-        <div class="sidebar">
-          <h3>📖 Documentation</h3>
-          <ul>
-            <li><a href="#" onclick="loadDoc('GETTING_STARTED')">Getting Started</a></li>
-            <li><a href="#" onclick="loadDoc('SETUP')">Setup Guide</a></li>
-            <li><a href="#" onclick="loadDoc('WORKFLOW')">GitOps Workflow</a></li>
-            <li><a href="#" onclick="loadDoc('MONITORING_SETUP')">Monitoring Setup</a></li>
-            <li><a href="#" onclick="loadDoc('DASHBOARDS')">Grafana Dashboards</a></li>
-            <li><a href="#" onclick="loadDoc('PROJECT_STRUCTURE')">Project Structure</a></li>
-            <li><a href="#" onclick="loadDoc('CODIFICATION_SUMMARY')">Codification</a></li>
-            <li><a href="#" onclick="loadDoc('ARCHITECTURE')">Architecture</a></li>
-          </ul>
+        <a href="http://localhost:8888" class="back-link">← Back to Dashboard</a>
 
-          <h3 style="margin-top: 30px;">🔗 Quick Links</h3>
-          <ul>
-            <li><a href="http://localhost:8888" target="_blank">← Back to Dashboard</a></li>
-            <li><a href="https://localhost:8080" target="_blank">ArgoCD</a></li>
-            <li><a href="http://localhost:3000" target="_blank">Grafana</a></li>
-            <li><a href="http://localhost:9090" target="_blank">Prometheus</a></li>
-          </ul>
+        <div class="doc-grid">
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/GETTING_STARTED.md" target="_blank" class="doc-card">
+            <div class="doc-title">🚀 Getting Started</div>
+            <div class="doc-description">Quick 3-step setup guide to get everything running.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/SETUP.md" target="_blank" class="doc-card">
+            <div class="doc-title">⚙️ Setup Guide</div>
+            <div class="doc-description">Detailed installation instructions for each component.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/WORKFLOW.md" target="_blank" class="doc-card">
+            <div class="doc-title">🔄 GitOps Workflow</div>
+            <div class="doc-description">How to deploy apps using ArgoCD and git.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/MONITORING_SETUP.md" target="_blank" class="doc-card">
+            <div class="doc-title">📊 Monitoring Setup</div>
+            <div class="doc-description">Configure Prometheus and Grafana for cluster metrics.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/DASHBOARDS.md" target="_blank" class="doc-card">
+            <div class="doc-title">📈 Grafana Dashboards</div>
+            <div class="doc-description">Explore pre-built dashboards and metrics visualization.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/PROJECT_STRUCTURE.md" target="_blank" class="doc-card">
+            <div class="doc-title">📁 Project Structure</div>
+            <div class="doc-description">Understand the project layout and file organization.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/CODIFICATION_SUMMARY.md" target="_blank" class="doc-card">
+            <div class="doc-title">✅ Codification</div>
+            <div class="doc-description">What's versioned in git vs what's manual setup.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
+
+          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/docs/ARCHITECTURE.md" target="_blank" class="doc-card">
+            <div class="doc-title">🏗️ Architecture</div>
+            <div class="doc-description">Deep dive into how the cluster and components work.</div>
+            <div class="doc-link">View on GitHub</div>
+          </a>
         </div>
 
-        <div class="content">
-          <a href="http://localhost:8888" class="back-to-dashboard">← Back to Dashboard</a>
-          <div id="content-area" class="markdown-body">
-            <div class="loading">Loading documentation...</div>
-          </div>
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(0, 208, 132, 0.1); text-align: center; color: #666; font-size: 0.9em;">
+          <p>All documentation is hosted on GitHub</p>
+          <p style="margin-top: 10px;"><a href="https://github.com/mvs5465/local-k8s-argocd" target="_blank" style="color: #00d084; text-decoration: none;">github.com/mvs5465/local-k8s-argocd</a></p>
         </div>
       </div>
-
-      <script>
-        // Simple markdown to HTML converter (basic)
-        function markdownToHtml(markdown) {
-          let html = markdown
-            // Headers
-            .replace(/^### (.*?)$/gm, '<h3>$1</h3>')
-            .replace(/^## (.*?)$/gm, '<h2>$1</h2>')
-            .replace(/^# (.*?)$/gm, '<h1>$1</h1>')
-            // Code blocks
-            .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
-            // Inline code
-            .replace(/`([^`]+)`/g, '<code>$1</code>')
-            // Bold
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/__(.*?)__/g, '<strong>$1</strong>')
-            // Italic
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/_(.*?)_/g, '<em>$1</em>')
-            // Links
-            .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
-            // Lists
-            .replace(/^\* (.*?)$/gm, '<li>$1</li>')
-            .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-            .replace(/^- (.*?)$/gm, '<li>$1</li>')
-            // Paragraphs
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/^(?!<[h|u|p|l|b|c|s|t|d|f|e])(.+)$/gm, '<p>$1</p>')
-            // Line breaks
-            .replace(/\n/g, '<br>');
-          return html;
-        }
-
-        const docs = {
-          'GETTING_STARTED': 'GETTING_STARTED.md',
-          'SETUP': 'SETUP.md',
-          'WORKFLOW': 'WORKFLOW.md',
-          'MONITORING_SETUP': 'MONITORING_SETUP.md',
-          'DASHBOARDS': 'DASHBOARDS.md',
-          'PROJECT_STRUCTURE': 'PROJECT_STRUCTURE.md',
-          'CODIFICATION_SUMMARY': 'CODIFICATION_SUMMARY.md',
-          'ARCHITECTURE': 'docs/ARCHITECTURE.md'
-        };
-
-        function loadDoc(docName) {
-          const contentArea = document.getElementById('content-area');
-          const filePath = docs[docName];
-
-          if (!filePath) {
-            contentArea.innerHTML = '<p>Document not found.</p>';
-            return;
-          }
-
-          contentArea.innerHTML = '<div class="loading">Loading ' + docName + '...</div>';
-
-          fetch('/docs/' + filePath)
-            .then(response => response.text())
-            .then(markdown => {
-              contentArea.innerHTML = markdownToHtml(markdown);
-              // Update active link
-              document.querySelectorAll('.sidebar a').forEach(a => {
-                a.classList.remove('active');
-              });
-              event.target.classList.add('active');
-            })
-            .catch(error => {
-              contentArea.innerHTML = '<p>Error loading document: ' + error + '</p>';
-            });
-        }
-
-        // Load first doc on page load
-        window.addEventListener('DOMContentLoaded', function() {
-          loadDoc('GETTING_STARTED');
-          document.querySelector('.sidebar a').classList.add('active');
-        });
-      </script>
     </body>
     </html>
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: docs-files
-  namespace: default
-data:
-  GETTING_STARTED.md: |
-    # Getting Started: 3-Step Guide
-
-    You've got a fresh project! Here's what to do next.
-
-    ## Step 1: Get a K8s Cluster Running
-
-    Choose one:
-
-    **Option A: Docker Desktop (macOS, easiest)**
-    - Already have Docker Desktop? Great!
-    - Preferences → Kubernetes → Enable Kubernetes
-    - Takes 2 minutes to start
-    - Verify: `kubectl cluster-info`
-
-    **Option B: Minikube (lightweight)**
-    ```bash
-    brew install minikube
-    minikube start --cpus=4 --memory=4096
-    ```
-
-    **Option C: Colima (currently running)**
-    ```bash
-    brew install colima docker kubectl
-    colima start --kubernetes
-    ```
-
-    ## Step 2: Run the Quick-Start Script
-
-    ```bash
-    cd ~/projects/local-k8s-argocd
-    chmod +x quick-start.sh
-    ./quick-start.sh
-    ```
-
-    This installs ArgoCD and shows you the admin password.
-
-    ## Step 3: Access Services
-
-    ### Dashboard (Entrypoint)
-    - **URL:** http://localhost:8888
-    - All services linked and organized
-
-    ### ArgoCD (GitOps)
-    - **URL:** https://localhost:8080
-    - Username: admin
-    - Password: (from script output)
-
-    ### Grafana (Metrics)
-    - **URL:** http://localhost:3000
-    - No login required (anonymous access)
-    - 3 pre-built K8s dashboards included
-
-    ### Prometheus (Metrics Collection)
-    - **URL:** http://localhost:9090
-    - Scraping K8s API, nodes, pods, kube-state-metrics
-
-    That's it! You now have:
-    - ✅ Local K8s cluster
-    - ✅ ArgoCD for GitOps deployments
-    - ✅ Prometheus collecting metrics
-    - ✅ Grafana visualizing metrics
-    - ✅ All accessible on localhost
-
-    ## Troubleshooting
-
-    **"kubectl: command not found"**
-    → Install Docker Desktop or Colima
-
-    **"Cluster info" fails**
-    → Start your cluster (Docker Desktop K8s, Colima, or Minikube)
-
-    **"Can't access localhost:3000"**
-    → Check port-forward is running: `ps aux | grep port-forward`
-
-    ## Next Steps
-
-    1. Read **WORKFLOW.md** to deploy your first app via GitOps
-    2. Check **DASHBOARDS.md** to explore cluster metrics
-    3. See **ARCHITECTURE.md** to understand how everything works
-
-  SETUP.md: |
-    # Setup Guide: Local K8s + ArgoCD
-
-    ## Prerequisites
-
-    You'll need three main tools:
-    1. **Docker** (or Docker Desktop on macOS) - runs containers
-    2. **kubectl** - CLI to talk to your K8s cluster
-    3. **A K8s cluster** - we'll use Colima with K3s
-
-    ### Install Options
-
-    **Option A: Docker Desktop K8s**
-    - Download from https://www.docker.com/products/docker-desktop
-    - Open Docker Desktop → Preferences → Kubernetes
-    - Check "Enable Kubernetes"
-    - Wait for it to start
-
-    **Option B: Minikube**
-    ```bash
-    brew install minikube
-    minikube start --cpus=4 --memory=4096
-    ```
-
-    **Option C: Colima (Recommended)**
-    ```bash
-    brew install colima docker kubectl
-    colima start --kubernetes
-    ```
-
-    ## Step 1: Verify Kubectl Works
-
-    ```bash
-    kubectl get nodes
-    kubectl get pods --all-namespaces
-    ```
-
-    Should show your cluster node(s) and system pods.
-
-    ## Step 2: Install ArgoCD
-
-    ```bash
-    kubectl create namespace argocd
-    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.7/manifests/install.yaml
-    kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s
-    ```
-
-    ## Step 3: Access ArgoCD UI
-
-    ```bash
-    kubectl port-forward -n argocd svc/argocd-server 8080:443
-    ```
-
-    Then:
-    - Open browser to `https://localhost:8080`
-    - Username: `admin`
-    - Password: `kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`
-    - **Accept the TLS warning** (self-signed cert)
-
-    ## Step 4: Install Prometheus & Grafana
-
-    See MONITORING_SETUP.md for detailed instructions.
-
-  WORKFLOW.md: |
-    # ArgoCD Workflow: GitOps in Action
-
-    ## The GitOps Model
-
-    Normal K8s: You run `kubectl apply` manually
-    → **ArgoCD way**: You push to git, ArgoCD auto-deploys
-
-    ```
-    Your Git Repo (manifests)
-           ↓
-      ArgoCD watches
-           ↓
-    Auto-syncs to cluster
-    ```
-
-    ## Example: Deploy a Simple App
-
-    ### 1. Create a Git Repo
-
-    ```bash
-    mkdir ~/my-app-manifests
-    cd ~/my-app-manifests
-    git init
-    ```
-
-    ### 2. Create a K8s Manifest
-
-    Create `app.yaml`:
-
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: nginx-app
-    spec:
-      replicas: 2
-      selector:
-        matchLabels:
-          app: nginx-app
-      template:
-        metadata:
-          labels:
-            app: nginx-app
-        spec:
-          containers:
-          - name: nginx
-            image: nginx:latest
-            ports:
-            - containerPort: 80
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: nginx-app
-    spec:
-      type: LoadBalancer
-      selector:
-        app: nginx-app
-      ports:
-      - protocol: TCP
-        port: 80
-        targetPort: 80
-    ```
-
-    Push to git:
-    ```bash
-    git add .
-    git commit -m "Add nginx deployment"
-    git push
-    ```
-
-    ### 3. Tell ArgoCD About Your App
-
-    In ArgoCD UI, click "+ New App":
-    - **Application Name**: `my-nginx-app`
-    - **Repository URL**: (path to your manifests repo)
-    - **Path**: `.`
-    - **Cluster**: `https://kubernetes.default.svc`
-    - **Namespace**: `default`
-    - Click "Create"
-
-    ### 4. Watch It Sync
-
-    ArgoCD will deploy your app. Verify:
-    ```bash
-    kubectl get deployment nginx-app
-    kubectl get svc nginx-app
-    kubectl get pods
-    ```
-
-    ### 5. Update Your App (The GitOps Way)
-
-    Edit your manifest, commit, push:
-    ```bash
-    git commit -am "Update nginx version"
-    git push
-    ```
-
-    Within 3 minutes, ArgoCD syncs the change automatically.
-
-  MONITORING_SETUP.md: |
-    # Monitoring Stack: Prometheus + Grafana
-
-    You now have a complete monitoring stack running on your cluster!
-
-    ## What You Have
-
-    ### Prometheus
-    - **URL:** http://localhost:9090
-    - Scrapes K8s API, nodes, pods
-    - 2GB storage, 7-day retention
-    - 48,000+ time series collected
-
-    ### Grafana
-    - **URL:** http://localhost:3000
-    - Pre-configured Prometheus datasource
-    - 3 pre-built K8s dashboards
-    - No login required (anonymous access)
-
-    ### Supporting Components
-    - **kube-state-metrics** - K8s object state
-    - **node-exporter** - node-level metrics
-    - **prometheus-pushgateway** - optional batch jobs
-
-    ## What Prometheus Collects
-
-    1. **K8s API Server** - request rates, latencies
-    2. **etcd** - database performance
-    3. **Kubelet** - node resource usage
-    4. **Scheduler** - job scheduling metrics
-    5. **Node data** - CPU, memory, disk, network
-
-    ## Accessing Grafana
-
-    1. Go to http://localhost:3000
-    2. No login needed (anonymous)
-    3. Dashboards pre-loaded and ready
-
-  DASHBOARDS.md: |
-    # Grafana Dashboards
-
-    ## Pre-Built Dashboards
-
-    Three standard Kubernetes dashboards are automatically loaded:
-
-    ### 1. Kubernetes Cluster
-    Overall cluster health and node stats.
-
-    ### 2. Kubernetes Pods
-    Pod CPU/memory usage and resource analysis.
-
-    ### 3. Cluster Monitoring
-    Deep cluster diagnostics and performance metrics.
-
-    ## Access
-
-    Go to http://localhost:3000 and check the Dashboards menu.
-
-  PROJECT_STRUCTURE.md: |
-    # Project Structure
-
-    ```
-    local-k8s-argocd/
-    ├── manifests/
-    │   ├── grafana-app.yaml
-    │   ├── prometheus-app.yaml
-    │   ├── dashboard-ui.yaml
-    │   └── docs-server.yaml
-    ├── docs/
-    │   └── ARCHITECTURE.md
-    ├── quick-start.sh
-    ├── README.md
-    ├── GETTING_STARTED.md
-    ├── SETUP.md
-    ├── WORKFLOW.md
-    └── MONITORING_SETUP.md
-    ```
-
-    All applications are declarative YAML manifests in `manifests/` and can be managed via ArgoCD.
-
-  CODIFICATION_SUMMARY.md: |
-    # Codification Summary
-
-    ## What's Codified (In Git)
-
-    - ✅ ArgoCD installation script
-    - ✅ Grafana deployment (Helm chart + config)
-    - ✅ Prometheus deployment (Helm chart + config)
-    - ✅ Dashboard UI (nginx + HTML)
-    - ✅ Docs server (nginx + markdown)
-    - ✅ All backed by git version control
-
-    ## What's Manual
-
-    - ❌ Colima VM provisioning
-    - ❌ Port-forwarding setup
-    - ❌ Environment variables
-
-    Everything infrastructure-related is in git and can be deployed from scratch with `kubectl apply -f manifests/`.
 
 ---
 apiVersion: apps/v1
@@ -750,8 +207,6 @@ spec:
         volumeMounts:
         - name: html
           mountPath: /usr/share/nginx/html
-        - name: docs
-          mountPath: /usr/share/nginx/html/docs
         resources:
           requests:
             cpu: 50m
@@ -763,9 +218,6 @@ spec:
       - name: html
         configMap:
           name: docs-server-html
-      - name: docs
-        configMap:
-          name: docs-files
 
 ---
 apiVersion: v1
