@@ -24,26 +24,20 @@ kubectl cluster-info || {
 }
 
 echo ""
-echo "🔄 Installing ArgoCD..."
+echo "🔄 Setting up ArgoCD namespace..."
 kubectl create namespace argocd || true
 
-echo "Downloading official ArgoCD manifest..."
-curl -sL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml | \
-  kubectl apply -n argocd -f - 2>&1 | grep -v "Too long" || true
+echo ""
+echo "📦 Deploying root application..."
+kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
-echo "⏳ Waiting for ArgoCD server to be ready (this takes ~30-60 seconds)..."
+echo ""
+echo "⏳ Waiting for ArgoCD to be deployed via Helm (this takes ~60 seconds)..."
 kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s || {
-    echo "⚠️  Timeout waiting for pods. Check status with:"
+    echo "⚠️  Timeout waiting for ArgoCD. Check status with:"
     echo "   kubectl get pods -n argocd"
     exit 1
 }
-
-echo ""
-echo "✅ ArgoCD installed!"
-echo ""
-
-echo "📦 Deploying root application..."
-kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
@@ -66,9 +60,8 @@ echo "✅ All applications deployed!"
 echo ""
 
 echo "🌐 To access ArgoCD UI:"
-echo "   1. Run: kubectl port-forward -n argocd svc/argocd-server 8080:443"
-echo "   2. Open: https://localhost:8080"
-echo "   3. No login required (auth disabled for local dev)"
+echo "   Open: https://argocd.local"
+echo "   (No login required - auth disabled for local dev)"
 echo ""
 
 echo "📚 All services are now running via ArgoCD:"
