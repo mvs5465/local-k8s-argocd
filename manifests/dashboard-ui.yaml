@@ -168,7 +168,7 @@ data:
         <div class="services-grid">
           <!-- ArgoCD -->
           <div class="service-card">
-            <a href="https://localhost:8080" target="_blank">
+            <a id="argocd-link" href="https://localhost:8080" target="_blank">
               <div class="service-icon">🚀</div>
               <div class="service-title">ArgoCD</div>
               <div class="service-description">GitOps continuous deployment. Manage applications via git.</div>
@@ -178,7 +178,7 @@ data:
 
           <!-- Grafana -->
           <div class="service-card">
-            <a href="http://localhost:3000" target="_blank">
+            <a id="grafana-link" href="http://localhost:3000" target="_blank">
               <div class="service-icon">📊</div>
               <div class="service-title">Grafana</div>
               <div class="service-description">Visualize cluster metrics and create custom dashboards.</div>
@@ -188,7 +188,7 @@ data:
 
           <!-- Prometheus -->
           <div class="service-card">
-            <a href="http://localhost:9090" target="_blank">
+            <a id="prometheus-link" href="http://localhost:9090" target="_blank">
               <div class="service-icon">📈</div>
               <div class="service-title">Prometheus</div>
               <div class="service-description">Time-series database collecting cluster metrics.</div>
@@ -198,7 +198,7 @@ data:
 
           <!-- Kubernetes API -->
           <div class="service-card">
-            <a href="https://localhost:55152" target="_blank">
+            <a id="api-link" href="https://localhost:55152" target="_blank">
               <div class="service-icon">☸️</div>
               <div class="service-title">Kubernetes API</div>
               <div class="service-description">Direct access to K8s API server for advanced operations.</div>
@@ -208,7 +208,7 @@ data:
 
           <!-- Documentation -->
           <div class="service-card">
-            <a href="http://localhost:7777" target="_blank">
+            <a id="docs-link" href="http://localhost:7777" target="_blank">
               <div class="service-icon">📚</div>
               <div class="service-title">Documentation</div>
               <div class="service-description">Interactive guides and setup instructions.</div>
@@ -223,6 +223,19 @@ data:
           <p style="margin-top: 10px; color: #555;">Powered by ArgoCD, Prometheus, and Grafana</p>
         </footer>
       </div>
+
+      <script>
+        // Update links to use the same host as the current page
+        window.addEventListener('DOMContentLoaded', function() {
+          const host = window.location.hostname;
+
+          document.getElementById('argocd-link').href = 'https://' + host + ':8080';
+          document.getElementById('grafana-link').href = 'http://' + host + ':3000';
+          document.getElementById('prometheus-link').href = 'http://' + host + ':9090';
+          document.getElementById('api-link').href = 'https://' + host + ':55152';
+          document.getElementById('docs-link').href = 'http://' + host + ':7777';
+        });
+      </script>
     </body>
     </html>
 
