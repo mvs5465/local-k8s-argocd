@@ -271,9 +271,18 @@ spec:
         image: nginx:1.27.4-alpine
         ports:
         - containerPort: 80
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 101
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
         volumeMounts:
         - name: html
           mountPath: /usr/share/nginx/html
+        - name: nginx-tmp
+          mountPath: /var/run/nginx
+        - name: nginx-cache
+          mountPath: /var/cache/nginx
         resources:
           requests:
             cpu: 50m
@@ -285,6 +294,10 @@ spec:
       - name: html
         configMap:
           name: dashboard-html
+      - name: nginx-tmp
+        emptyDir: {}
+      - name: nginx-cache
+        emptyDir: {}
 
 ---
 apiVersion: v1
