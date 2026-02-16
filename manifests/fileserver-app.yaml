@@ -136,6 +136,9 @@ data:
           return f"<h1>Error</h1><p>Directory not found: {BASE_DIR}</p>", 404
 
         for entry in sorted(path.iterdir()):
+          # Skip Kubernetes ConfigMap internal directories
+          if entry.name.startswith('..'):
+            continue
           if entry.is_dir():
             items.append({
               'name': entry.name,
@@ -189,19 +192,6 @@ spec:
       labels:
         app: fileserver
     spec:
-      initContainers:
-      - name: copy-files
-        image: busybox:latest
-        command:
-        - cp
-        - -r
-        - /configfiles/.
-        - /shared-files/
-        volumeMounts:
-        - name: configfiles
-          mountPath: /configfiles
-        - name: files
-          mountPath: /shared-files
       containers:
       - name: fileserver
         image: python:3.11-slim
@@ -214,12 +204,12 @@ spec:
         - containerPort: 5000
         env:
         - name: FILE_DIR
-          value: "/shared-files"
+          value: "/files"
         volumeMounts:
         - name: app
           mountPath: /app
         - name: files
-          mountPath: /shared-files
+          mountPath: /files
         resources:
           requests:
             cpu: 50m
@@ -231,11 +221,10 @@ spec:
       - name: app
         configMap:
           name: fileserver-app
-      - name: configfiles
-        configMap:
-          name: fileserver-files
       - name: files
-        emptyDir: {}
+        hostPath:
+          path: /Users/matthewschwartz/.k8s-files
+          type: Directory
 
 ---
 apiVersion: v1
