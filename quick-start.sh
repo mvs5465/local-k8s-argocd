@@ -14,7 +14,7 @@ if ! command -v kubectl &> /dev/null; then
 fi
 
 echo "✅ kubectl found"
-kubectl version --client --short
+kubectl version --client
 
 echo ""
 echo "📋 Cluster status:"
