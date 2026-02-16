@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/mvs5465/local-k8s-argocd
     targetRevision: main
-    path: manifests
+    path: manifests/argocd
 
   destination:
     server: https://kubernetes.default.svc
