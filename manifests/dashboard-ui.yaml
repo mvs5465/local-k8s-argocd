@@ -218,7 +218,7 @@ data:
 
           <!-- File Server -->
           <div class="service-card">
-            <a id="fileserver-link" href="http://localhost:5555" target="_blank">
+            <a id="fileserver-link" href="http://localhost:30080" target="_blank">
               <div class="service-icon">📁</div>
               <div class="service-title">File Server</div>
               <div class="service-description">Browse and download files from /tmp/files.</div>
@@ -235,7 +235,7 @@ data:
       </div>
 
       <script>
-        // Update links to use the same host as the current page
+        // Update links to use the same host as the current page with port-based routing
         window.addEventListener('DOMContentLoaded', function() {
           const host = window.location.hostname;
 
@@ -244,7 +244,7 @@ data:
           document.getElementById('prometheus-link').href = 'http://' + host + ':9090';
           document.getElementById('api-link').href = 'https://' + host + ':55152';
           document.getElementById('docs-link').href = 'http://' + host + ':7777';
-          document.getElementById('fileserver-link').href = 'http://' + host + ':5555';
+          document.getElementById('fileserver-link').href = 'http://' + host + ':30080';
         });
       </script>
     </body>
@@ -293,7 +293,7 @@ metadata:
   name: dashboard-ui
   namespace: default
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 80

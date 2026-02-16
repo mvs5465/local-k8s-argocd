@@ -25,7 +25,7 @@ spec:
             enabled: true
             size: 2Gi
           service:
-            type: LoadBalancer
+            type: ClusterIP
 
         pushgateway:
           enabled: false
