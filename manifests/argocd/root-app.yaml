@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/mvs5465/local-k8s-apps
     targetRevision: main
-    path: manifests
+    path: apps
 
   destination:
     server: https://kubernetes.default.svc
