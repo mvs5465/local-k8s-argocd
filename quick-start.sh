@@ -28,15 +28,15 @@ echo "🔄 Setting up ArgoCD namespace..."
 kubectl create namespace argocd || true
 
 echo ""
-echo "📦 Installing ArgoCD CRDs..."
-kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds?ref=stable
+echo "📦 Installing ArgoCD CRDs (required for AppProject and Application resources)..."
+kubectl apply -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/crds-install.yaml
 
 echo ""
-echo "📦 Deploying root application..."
+echo "📦 Bootstrapping with AppProject and root application..."
 kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
 echo ""
-echo "⏳ Waiting for ArgoCD to be deployed via Helm (this takes ~60 seconds)..."
+echo "⏳ Waiting for ArgoCD to be deployed via Helm chart (this takes ~60 seconds)..."
 kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s || {
     echo "⚠️  Timeout waiting for ArgoCD. Check status with:"
     echo "   kubectl get pods -n argocd"
