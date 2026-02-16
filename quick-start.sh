@@ -28,6 +28,10 @@ echo "🔄 Setting up ArgoCD namespace..."
 kubectl create namespace argocd || true
 
 echo ""
+echo "📦 Installing ArgoCD CRDs..."
+kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds?ref=stable
+
+echo ""
 echo "📦 Deploying root application..."
 kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
