@@ -25,7 +25,7 @@ kubectl cluster-info || {
 
 echo ""
 echo "🔄 Installing ArgoCD..."
-kubectl apply -f manifests/argocd-install.yaml
+kubectl apply -f manifests/argocd/install.yaml
 
 echo ""
 echo "⏳ Waiting for ArgoCD server to be ready (this takes ~30-60 seconds)..."
@@ -39,13 +39,26 @@ echo ""
 echo "✅ ArgoCD installed!"
 echo ""
 
+echo "📦 Deploying applications via root Application..."
+kubectl apply -f manifests/argocd/appproject.yaml manifests/argocd/root-app.yaml
+
+echo ""
+echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
+kubectl wait -n argocd --for=condition=Synced application/root --timeout=300s || {
+    echo "⚠️  Apps didn't sync. Check status with:"
+    echo "   kubectl get app -n argocd"
+}
+
+echo ""
+echo "✅ All applications deployed!"
+echo ""
+
 echo "🌐 To access ArgoCD UI:"
 echo "   1. Run: kubectl port-forward -n argocd svc/argocd-server 8080:443"
 echo "   2. Open: https://localhost:8080"
 echo "   3. No login required (auth disabled for local dev)"
 echo ""
 
-echo "📚 Next steps:"
-echo "   - Deploy apps via ArgoCD UI or 'argocd app create' CLI"
-echo "   - See README.md for architecture and port-forwarding"
+echo "📚 All services are now running via ArgoCD:"
+echo "   - See README.md for port-forwarding and architecture"
 echo ""

@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cluster
+  namespace: argocd
+spec:
+  description: Project for managing all cluster applications
+
+  sourceRepos:
+  - 'https://github.com/mvs5465/local-k8s-argocd'
+  - 'https://grafana.github.io/helm-charts'
+  - 'https://prometheus-community.github.io/helm-charts'
+
+  destinations:
+  - namespace: 'default'
+    server: https://kubernetes.default.svc
+  - namespace: 'monitoring'
+    server: https://kubernetes.default.svc
+  - namespace: 'argocd'
+    server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
