@@ -25,7 +25,7 @@ kubectl cluster-info || {
 
 echo ""
 echo "🔄 Installing ArgoCD..."
-kubectl apply -f manifests/argocd/install.yaml
+kubectl apply -f manifests/argocd/argocd-install.yaml
 
 echo ""
 echo "⏳ Waiting for ArgoCD server to be ready (this takes ~30-60 seconds)..."
