@@ -4,45 +4,7 @@ ArgoCD infrastructure and configuration for a local K8s cluster. Pair with [`loc
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                      Colima (Docker + K3s)                      │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                   │
-│  ┌──────────────────────┐         ┌──────────────────────────┐  │
-│  │   argocd namespace   │         │  monitoring namespace    │  │
-│  ├──────────────────────┤         ├──────────────────────────┤  │
-│  │ ┌────────────────┐   │         │ ┌────────────────────┐   │  │
-│  │ │ ArgoCD Server  │   │         │ │   Prometheus       │   │  │
-│  │ │ (port 8080)    │   │         │ │ (port 9090)        │   │  │
-│  │ └────────────────┘   │         │ └────────────────────┘   │  │
-│  └──────────────────────┘         │ ┌────────────────────┐   │  │
-│                                    │ │    Grafana         │   │  │
-│  ┌──────────────────────┐         │ │ (port 3000)        │   │  │
-│  │ default namespace    │         │ └────────────────────┘   │  │
-│  ├──────────────────────┤         └──────────────────────────┘  │
-│  │ ┌────────────────┐   │                                        │
-│  │ │ Dashboard UI   │   │         ┌──────────────────────────┐  │
-│  │ │ (port 8888)    │   │         │ File Server (Nginx)      │  │
-│  │ └────────────────┘   │         │ (port 30080)             │  │
-│  │ ┌────────────────┐   │         │ hostPath: /tmp/files     │  │
-│  │ │ File Server    │   │         └──────────────────────────┘  │
-│  │ │ (port 30080)   │   │                                        │
-│  │ └────────────────┘   │                                        │
-│  └──────────────────────┘                                        │
-│                                                                   │
-└─────────────────────────────────────────────────────────────────┘
-            ↓ Port-forwards to localhost
-┌─────────────────────────────────────────────────────────────────┐
-│                      Your Machine                                │
-├─────────────────────────────────────────────────────────────────┤
-│ http://localhost:8888   → Dashboard UI                           │
-│ https://localhost:8080  → ArgoCD                                 │
-│ http://localhost:3000   → Grafana                                │
-│ http://localhost:9090   → Prometheus                             │
-│ http://localhost:30080  → File Server                            │
-└─────────────────────────────────────────────────────────────────┘
-```
+![Architecture Diagram](architecture.svg)
 
 ## Two-Repo Architecture
 
@@ -96,24 +58,25 @@ This installs ArgoCD in the cluster. The `/tmp/files` directory on the Colima no
 
 ## Services
 
-| Service | URL | Port |
-|---------|-----|------|
-| Dashboard | http://localhost:8888 | 8888 |
-| ArgoCD | https://localhost:8080 | 8080 |
-| Grafana | http://localhost:3000 | 3000 |
-| Prometheus | http://localhost:9090 | 9090 |
-| File Server | http://localhost:30080 | 30080 |
+All services are accessible via hostname routing (requires `/etc/hosts` entries):
 
-## Port-Forwarding
+| Service | URL |
+|---------|-----|
+| ArgoCD | https://argocd.local |
+| Grafana | http://grafana.local |
+| Prometheus | http://prometheus.local |
+| Dashboard UI | http://dashboard.local |
+| File Server | http://localhost:30080 |
 
-If port-forwards close, restart them:
+### Setup Hostname Routing
 
-```bash
-kubectl port-forward -n default svc/dashboard-ui 8888:80 &
-kubectl port-forward -n argocd svc/argocd-server 8080:443 &
-kubectl port-forward -n monitoring svc/grafana 3000:80 &
-kubectl port-forward -n monitoring svc/prometheus-server 9090:80 &
-kubectl port-forward -n default svc/fileserver 30080:80 &
+Add these entries to your `/etc/hosts` file:
+
+```
+127.0.0.1 argocd.local
+127.0.0.1 grafana.local
+127.0.0.1 prometheus.local
+127.0.0.1 dashboard.local
 ```
 
 ## Deploying Applications
