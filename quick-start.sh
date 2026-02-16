@@ -50,10 +50,19 @@ kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.y
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
-kubectl wait -n argocd --for=condition=Synced application/root --timeout=300s || {
+for i in {1..60}; do
+    SYNC_STATUS=$(kubectl get application root -n argocd -o jsonpath='{.status.sync.status}' 2>/dev/null)
+    if [ "$SYNC_STATUS" = "Synced" ]; then
+        break
+    fi
+    sleep 1
+done
+
+if [ "$SYNC_STATUS" != "Synced" ]; then
     echo "⚠️  Root app didn't sync. Check status with:"
-    echo "   kubectl get app -n argocd"
-}
+    echo "   kubectl get applications -n argocd"
+    exit 1
+fi
 
 echo ""
 echo "✅ All applications deployed!"
