@@ -25,7 +25,7 @@ kubectl cluster-info || {
 
 echo ""
 echo "🔄 Installing ArgoCD..."
-kubectl apply -f manifests/argocd-install.yaml
+kubectl apply -f manifests/argocd/install.yaml
 
 echo ""
 echo "⏳ Waiting for ArgoCD server to be ready (this takes ~30-60 seconds)..."
@@ -39,13 +39,33 @@ echo ""
 echo "✅ ArgoCD installed!"
 echo ""
 
-echo "🌐 To access ArgoCD UI:"
+echo "🔐 Setting up GitHub authentication..."
+./setup-github-secret.sh || {
+    echo "⚠️  GitHub secret setup failed. Run ./setup-github-secret.sh manually."
+    exit 1
+}
+
+echo ""
+echo "⏳ Waiting for root Application to sync (this takes ~30 seconds)..."
+kubectl wait -n argocd --for=condition=Synced application/root --timeout=300s || {
+    echo "⚠️  Root app didn't sync. Check status with:"
+    echo "   kubectl get app -n argocd"
+    exit 1
+}
+
+echo ""
+echo "✅ All applications deployed!"
+echo ""
+
+echo "🌐 To access services:"
 echo "   1. Run: kubectl port-forward -n argocd svc/argocd-server 8080:443"
 echo "   2. Open: https://localhost:8080"
-echo "   3. No login required (auth disabled for local dev)"
+echo "   3. Dashboard: http://localhost:8888"
+echo "   4. Grafana: http://localhost:3000"
+echo "   5. Prometheus: http://localhost:9090"
 echo ""
 
 echo "📚 Next steps:"
-echo "   - Deploy apps via ArgoCD UI or 'argocd app create' CLI"
+echo "   - Check app sync status: kubectl get app -n argocd"
 echo "   - See README.md for architecture and port-forwarding"
 echo ""

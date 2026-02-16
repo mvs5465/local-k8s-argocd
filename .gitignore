@@ -1,0 +1,7 @@
+# Secrets
+manifests/argocd/github-secret.yaml
+
+# Local development
+.DS_Store
+*.swp
+*.swo
