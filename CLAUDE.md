@@ -3,13 +3,17 @@
 ## Guidelines for Claude Code
 
 ### Versioning & Releases
+**Release strategy:** Batch 2-3 changes per release to keep history clean and readable.
+
 1. **Update RELEASES.md** with each PR (add to `[Unreleased]` section)
-2. **When releasing:**
+2. **When releasing (after 2-3 PRs merged):**
    - Move `[Unreleased]` changes to new version section (e.g., `[v0.3.0] - YYYY-MM-DD`)
    - Use semantic versioning: MAJOR.MINOR.PATCH
+     - MINOR bump for features/enhancements
+     - PATCH bump for bug fixes/tweaks
    - Create git tag: `git tag -a vX.Y.Z -m "release message"`
    - Push tag: `git push origin vX.Y.Z`
-   - GitHub auto-creates release page from tag (can add release notes via GitHub UI or `gh release create`)
+   - Create GitHub release: `gh release create vX.Y.Z --notes-file RELEASES.md`
 
 ### Release Notes
 - Add changes under `[Unreleased]` section during development
