@@ -19,6 +19,18 @@ spec:
         persistence:
           enabled: false
 
+        auth:
+          anonymous:
+            enabled: true
+            org_role: Viewer
+
+        grafana.ini:
+          auth.anonymous:
+            enabled: true
+            org_role: Viewer
+          users:
+            allow_sign_up: false
+
         service:
           type: LoadBalancer
           port: 80
