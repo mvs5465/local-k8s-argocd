@@ -1,4 +1,22 @@
-# K8s + ArgoCD Project
+# Local K8s ArgoCD - Infrastructure Configuration
+
+This repo contains ArgoCD infrastructure and configuration. Pair with [`local-k8s-apps`](https://github.com/mvs5465/local-k8s-apps) for application definitions.
+
+## Two-Repo Architecture
+
+**Why separate repos?**
+- Prevents "chicken-and-egg": ArgoCD watches main branch for its own config, but also watches app repos
+- Allows safe feature-branch testing in applications repo without modifying ArgoCD
+- Clear separation: infrastructure (stable) vs applications (active development)
+
+**This Repo** (`local-k8s-argocd`):
+- AppProject, root applications, ArgoCD installation
+- Application manifests: `manifests/argocd/root-system-app.yaml`, `manifests/argocd/root-apps-app.yaml`
+- These point to `local-k8s-apps` repo
+
+**Other Repo** (`local-k8s-apps`):
+- Actual application definitions (Prometheus, Grafana, Dashboard, File Server)
+- Can iterate freely without touching this repo's ArgoCD config
 
 ## Guidelines for Claude Code
 
