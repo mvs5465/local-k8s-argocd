@@ -45,17 +45,13 @@ echo ""
 echo "✅ ArgoCD installed!"
 echo ""
 
-echo "📦 Deploying root Applications (app-of-apps)..."
-kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-system-app.yaml -f manifests/argocd/root-apps-app.yaml
+echo "📦 Deploying root application..."
+kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
-kubectl wait -n argocd --for=condition=Synced application/root-system --timeout=300s || {
-    echo "⚠️  System apps didn't sync. Check status with:"
-    echo "   kubectl get app -n argocd"
-}
-kubectl wait -n argocd --for=condition=Synced application/root-apps --timeout=300s || {
-    echo "⚠️  User apps didn't sync. Check status with:"
+kubectl wait -n argocd --for=condition=Synced application/root --timeout=300s || {
+    echo "⚠️  Root app didn't sync. Check status with:"
     echo "   kubectl get app -n argocd"
 }
 
