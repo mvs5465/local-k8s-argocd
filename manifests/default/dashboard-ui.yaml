@@ -271,11 +271,6 @@ spec:
         image: nginx:1.27.4-alpine
         ports:
         - containerPort: 80
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 101
-          readOnlyRootFilesystem: true
-          allowPrivilegeEscalation: false
         volumeMounts:
         - name: html
           mountPath: /usr/share/nginx/html

@@ -12,8 +12,6 @@ spec:
     repoURL: https://github.com/mvs5465/local-k8s-argocd
     targetRevision: main
     path: manifests/default
-    directory:
-      include: 'dashboard-ui.yaml'
 
   destination:
     server: https://kubernetes.default.svc
