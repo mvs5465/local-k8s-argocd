@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-system
+  name: root
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/mvs5465/local-k8s-apps
     targetRevision: main
-    path: system
+    path: manifests
 
   destination:
     server: https://kubernetes.default.svc
