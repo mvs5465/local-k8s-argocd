@@ -20,6 +20,9 @@ metadata:
   namespace: argocd
   labels:
     app.kubernetes.io/name: argocd-server
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   ingressClassName: nginx
   rules:
