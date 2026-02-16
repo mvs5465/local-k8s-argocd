@@ -45,10 +45,8 @@ echo ""
 echo "✅ ArgoCD installed!"
 echo ""
 
-echo "📦 Deploying applications via root Application..."
-kubectl apply -f manifests/argocd/appproject.yaml
-kubectl apply -f manifests/argocd/root-app.yaml
-kubectl apply -f manifests/argocd/dashboard-ui-app.yaml -f manifests/argocd/fileserver-app.yaml -f manifests/argocd/grafana-app.yaml -f manifests/argocd/prometheus-app.yaml
+echo "📦 Deploying root Application (app-of-apps)..."
+kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
