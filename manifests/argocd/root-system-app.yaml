@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fileserver
+  name: root-system
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -9,13 +9,13 @@ spec:
   project: cluster
 
   source:
-    repoURL: https://github.com/mvs5465/local-k8s-argocd
+    repoURL: https://github.com/mvs5465/local-k8s-apps
     targetRevision: main
-    path: manifests/default
+    path: system
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: argocd
 
   syncPolicy:
     automated:

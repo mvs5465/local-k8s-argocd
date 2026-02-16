@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+- Implemented app-of-apps pattern: root application now points to manifests/argocd directory to auto-discover and manage child applications
+- Simplified quick-start.sh: only apply appproject and root app; child applications are auto-created by root app
+
 ### Fixed
 - fileserver pod mounting issue: /tmp/files directory must exist on colima node before deployment (setup requirement, not code issue)
 - Grafana and Prometheus OutOfSync errors: AppProject now allows ClusterRole and ClusterRoleBinding resources required by Helm charts

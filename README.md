@@ -1,6 +1,6 @@
-# Local Kubernetes Cluster
+# Local Kubernetes Cluster - Infrastructure
 
-A local K8s cluster with ArgoCD, Prometheus, and Grafana.
+ArgoCD infrastructure and configuration for a local K8s cluster. Pair with [`local-k8s-apps`](https://github.com/mvs5465/local-k8s-apps) repo for application definitions.
 
 ## Architecture
 
@@ -44,11 +44,29 @@ A local K8s cluster with ArgoCD, Prometheus, and Grafana.
 └─────────────────────────────────────────────────────────────────┘
 ```
 
+## Two-Repo Architecture
+
+This project uses a **separate repos** pattern to prevent the chicken-and-egg problem:
+
+**This Repo** (`local-k8s-argocd`):
+- ArgoCD infrastructure and configuration
+- Stable, rarely changes
+- Contains: AppProject, root applications, ArgoCD install
+- Watched by ArgoCD on main branch
+
+**Companion Repo** ([`local-k8s-apps`](https://github.com/mvs5465/local-k8s-apps)):
+- Application definitions (Prometheus, Grafana, Dashboard, File Server)
+- Where active development happens
+- Root applications point here and auto-discover
+- Can safely test on feature branches
+
+This separation prevents the problem where ArgoCD needs to watch feature branches to test changes to itself.
+
 ## Tech Stack
 
 - **Kubernetes**: k3s (via Colima)
 - **Container Runtime**: Docker (via Colima)
-- **GitOps**: ArgoCD
+- **GitOps**: ArgoCD (app-of-apps pattern with two repos)
 - **Monitoring**: Prometheus + Grafana
 - **File Server**: Nginx
 - **Dashboard**: Nginx with HTML dashboard
