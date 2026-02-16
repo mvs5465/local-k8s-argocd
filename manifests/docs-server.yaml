@@ -123,52 +123,52 @@ data:
       </div>
 
       <div class="container">
-        <a href="http://localhost:8888" class="back-link">← Back to Dashboard</a>
+        <a id="back-link" href="http://localhost:8888" class="back-link">← Back to Dashboard</a>
 
         <div class="doc-grid">
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/GETTING_STARTED.md" target="_blank" class="doc-card">
+          <a id="doc-getting-started" href="#" target="_blank" class="doc-card">
             <div class="doc-title">🚀 Getting Started</div>
             <div class="doc-description">Quick 3-step setup guide to get everything running.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/SETUP.md" target="_blank" class="doc-card">
+          <a id="doc-setup" href="#" target="_blank" class="doc-card">
             <div class="doc-title">⚙️ Setup Guide</div>
             <div class="doc-description">Detailed installation instructions for each component.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/WORKFLOW.md" target="_blank" class="doc-card">
+          <a id="doc-workflow" href="#" target="_blank" class="doc-card">
             <div class="doc-title">🔄 GitOps Workflow</div>
             <div class="doc-description">How to deploy apps using ArgoCD and git.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/MONITORING_SETUP.md" target="_blank" class="doc-card">
+          <a id="doc-monitoring" href="#" target="_blank" class="doc-card">
             <div class="doc-title">📊 Monitoring Setup</div>
             <div class="doc-description">Configure Prometheus and Grafana for cluster metrics.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/DASHBOARDS.md" target="_blank" class="doc-card">
+          <a id="doc-dashboards" href="#" target="_blank" class="doc-card">
             <div class="doc-title">📈 Grafana Dashboards</div>
             <div class="doc-description">Explore pre-built dashboards and metrics visualization.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/PROJECT_STRUCTURE.md" target="_blank" class="doc-card">
+          <a id="doc-structure" href="#" target="_blank" class="doc-card">
             <div class="doc-title">📁 Project Structure</div>
             <div class="doc-description">Understand the project layout and file organization.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/CODIFICATION_SUMMARY.md" target="_blank" class="doc-card">
+          <a id="doc-codification" href="#" target="_blank" class="doc-card">
             <div class="doc-title">✅ Codification</div>
             <div class="doc-description">What's versioned in git vs what's manual setup.</div>
             <div class="doc-link">View on GitHub</div>
           </a>
 
-          <a href="https://github.com/mvs5465/local-k8s-argocd/blob/main/docs/ARCHITECTURE.md" target="_blank" class="doc-card">
+          <a id="doc-architecture" href="#" target="_blank" class="doc-card">
             <div class="doc-title">🏗️ Architecture</div>
             <div class="doc-description">Deep dive into how the cluster and components work.</div>
             <div class="doc-link">View on GitHub</div>
@@ -177,9 +177,41 @@ data:
 
         <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid rgba(0, 208, 132, 0.1); text-align: center; color: #666; font-size: 0.9em;">
           <p>All documentation is hosted on GitHub</p>
-          <p style="margin-top: 10px;"><a href="https://github.com/mvs5465/local-k8s-argocd" target="_blank" style="color: #00d084; text-decoration: none;">github.com/mvs5465/local-k8s-argocd</a></p>
+          <p style="margin-top: 10px;"><a id="repo-link" href="#" target="_blank" style="color: #00d084; text-decoration: none;"></a></p>
         </div>
       </div>
+
+      <script>
+        // Build GitHub links dynamically from environment
+        // This keeps the manifest portable across different repos
+        window.addEventListener('DOMContentLoaded', function() {
+          const host = window.location.hostname;
+
+          // Update back link to use dashboard port
+          document.getElementById('back-link').href = 'http://' + host + ':8888';
+
+          // Default to the official repo - can be overridden via config
+          const repoUrl = 'https://github.com/mvs5465/local-k8s-argocd';
+          const docs = {
+            'doc-getting-started': 'GETTING_STARTED.md',
+            'doc-setup': 'SETUP.md',
+            'doc-workflow': 'WORKFLOW.md',
+            'doc-monitoring': 'MONITORING_SETUP.md',
+            'doc-dashboards': 'DASHBOARDS.md',
+            'doc-structure': 'PROJECT_STRUCTURE.md',
+            'doc-codification': 'CODIFICATION_SUMMARY.md',
+            'doc-architecture': 'docs/ARCHITECTURE.md'
+          };
+
+          Object.entries(docs).forEach(([id, path]) => {
+            const link = document.getElementById(id);
+            link.href = repoUrl + '/blob/main/' + path;
+          });
+
+          document.getElementById('repo-link').textContent = repoUrl.replace('https://', '');
+          document.getElementById('repo-link').href = repoUrl;
+        });
+      </script>
     </body>
     </html>
 
@@ -226,7 +258,7 @@ metadata:
   name: docs-server
   namespace: default
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 80
