@@ -65,12 +65,16 @@ colima start --kubernetes
 ### Installation
 
 ```bash
+# Create files directory on Colima (required for fileserver pod)
+colima ssh -- mkdir -p /tmp/files
+
+# Install cluster
 cd ~/projects/local-k8s-argocd
 chmod +x quick-start.sh
 ./quick-start.sh
 ```
 
-This installs ArgoCD in the cluster and outputs the initial admin password.
+This installs ArgoCD in the cluster. The `/tmp/files` directory on the Colima node is where the file server reads files from.
 
 ## Services
 

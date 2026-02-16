@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Fixed
+- fileserver pod mounting issue: /tmp/files directory must exist on colima node before deployment (setup requirement, not code issue)
+
 ## [v0.2.0] - 2026-02-16
 
 ### Added
