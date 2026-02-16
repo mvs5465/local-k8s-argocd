@@ -1,22 +1,23 @@
 # K8s + ArgoCD Project
 
-## Cleanup Tasks (Code Quality Pass) - COMPLETED ✅
+## Guidelines for Claude Code
 
-- [x] #1: Convert fileserver Pod to Deployment - PR #1
-- [x] #2: Pin image tags (nginx:latest → specific versions) - PR #2
-- [x] #3: Standardize labels (use app.kubernetes.io/* convention) - PR #3
-- [x] #4: Remove docs-server and unnecessary documentation - PR #4
-- [x] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem) - PR #5
-- [x] #6: Skip Ingress (port-forwarding sufficient for local dev)
-- [x] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet) - PR #6
-- [x] #8: Codify ArgoCD (currently installed manually via quick-start.sh) - PR #7
+### Release Notes
+Update `RELEASES.md` with each PR:
+- Add changes under `[Unreleased]` section during development
+- When releasing, move changes to dated version section (e.g., `[v0.3.0] - YYYY-MM-DD`)
+- Use standard categories: Added, Changed, Fixed, Removed, Security
+- Keep notes brief and user-focused
 
-## Docs Strategy
+### Documentation Strategy
+- README.md: Tech stack summary + setup only
+- RELEASES.md: Change history and feature tracking
+- CLAUDE.md: Project instructions for Claude Code
+- No separate human docs (Claude is the maintainer)
 
-- Removed docs-server pod and all separate documentation files
-- README.md now contains only tech stack summary and basic setup
-- Documentation maintained by Claude Code, not humans
-- Future: MCP server for Claude to query cluster state
+### Future Enhancements
+- MCP server for Claude to query cluster state
+- Automated deployment via ArgoCD itself
 
 ## File Server - Final Approach
 Nginx static file server using hostPath volume.
