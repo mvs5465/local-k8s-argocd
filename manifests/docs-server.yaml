@@ -225,11 +225,11 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: docs-server
+      app.kubernetes.io/name: docs-server
   template:
     metadata:
       labels:
-        app: docs-server
+        app.kubernetes.io/name: docs-server
     spec:
       containers:
       - name: nginx
@@ -263,4 +263,4 @@ spec:
   - port: 80
     targetPort: 80
   selector:
-    app: docs-server
+    app.kubernetes.io/name: docs-server
