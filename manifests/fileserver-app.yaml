@@ -23,6 +23,20 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: fileserver-files
+  namespace: default
+data:
+  readme.txt: |
+    This is test file 1
+  data.json: |
+    Some data here
+  document.txt: |
+    Test document
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: fileserver-app
   namespace: default
 data:
@@ -36,6 +50,9 @@ data:
 
     # Get directory from environment variable
     BASE_DIR = os.environ.get('FILE_DIR', '/files')
+
+    # Ensure directory exists
+    Path(BASE_DIR).mkdir(parents=True, exist_ok=True)
 
     HTML_TEMPLATE = '''
     <!DOCTYPE html>
@@ -172,6 +189,19 @@ spec:
       labels:
         app: fileserver
     spec:
+      initContainers:
+      - name: copy-files
+        image: busybox:latest
+        command:
+        - cp
+        - -r
+        - /configfiles/.
+        - /shared-files/
+        volumeMounts:
+        - name: configfiles
+          mountPath: /configfiles
+        - name: files
+          mountPath: /shared-files
       containers:
       - name: fileserver
         image: python:3.11-slim
@@ -201,10 +231,11 @@ spec:
       - name: app
         configMap:
           name: fileserver-app
+      - name: configfiles
+        configMap:
+          name: fileserver-files
       - name: files
-        hostPath:
-          path: /tmp/files
-          type: DirectoryOrCreate
+        emptyDir: {}
 
 ---
 apiVersion: v1
