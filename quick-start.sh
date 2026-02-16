@@ -31,9 +31,6 @@ echo "Downloading official ArgoCD manifest..."
 curl -sL https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml | \
   kubectl apply -n argocd -f - 2>&1 | grep -v "Too long" || true
 
-echo "Configuring ArgoCD (disabling auth)..."
-kubectl apply -f manifests/argocd/argocd-config.yaml || true
-
 echo "⏳ Waiting for ArgoCD server to be ready (this takes ~30-60 seconds)..."
 kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argocd-server --timeout=300s || {
     echo "⚠️  Timeout waiting for pods. Check status with:"
