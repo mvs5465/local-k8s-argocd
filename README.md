@@ -2,7 +2,7 @@
 
 A local K8s cluster with ArgoCD, Prometheus, and Grafana.
 
-<!-- Test commit status indicator -->
+<!-- Test commit status indicator - testing uncommitted changes -->
 
 ## Setup
 
