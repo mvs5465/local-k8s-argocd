@@ -216,6 +216,16 @@ data:
             </a>
           </div>
 
+          <!-- File Server -->
+          <div class="service-card">
+            <a id="fileserver-link" href="http://localhost:5555" target="_blank">
+              <div class="service-icon">📁</div>
+              <div class="service-title">File Server</div>
+              <div class="service-description">Browse and download files from /tmp/files.</div>
+              <div class="service-link">Open Files</div>
+            </a>
+          </div>
+
         </div>
 
         <footer>
@@ -234,6 +244,7 @@ data:
           document.getElementById('prometheus-link').href = 'http://' + host + ':9090';
           document.getElementById('api-link').href = 'https://' + host + ':55152';
           document.getElementById('docs-link').href = 'http://' + host + ':7777';
+          document.getElementById('fileserver-link').href = 'http://' + host + ':5555';
         });
       </script>
     </body>
