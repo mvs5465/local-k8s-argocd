@@ -1,6 +1,6 @@
 # K8s + ArgoCD Project
 
-## Cleanup Tasks (Code Quality Pass)
+## Cleanup Tasks (Code Quality Pass) - COMPLETED ✅
 
 - [x] #1: Convert fileserver Pod to Deployment - PR #1
 - [x] #2: Pin image tags (nginx:latest → specific versions) - PR #2
@@ -9,7 +9,7 @@
 - [x] #5: Add SecurityContext (runAsNonRoot, readOnlyRootFilesystem) - PR #5
 - [x] #6: Skip Ingress (port-forwarding sufficient for local dev)
 - [x] #7: Remove bare Pods (ensure all workloads use Deployment/StatefulSet) - PR #6
-- [ ] #8: Codify ArgoCD (currently installed manually via quick-start.sh)
+- [x] #8: Codify ArgoCD (currently installed manually via quick-start.sh) - PR #7
 
 ## Docs Strategy
 
