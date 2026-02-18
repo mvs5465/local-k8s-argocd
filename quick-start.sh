@@ -7,14 +7,21 @@ echo "🚀 Local K8s + ArgoCD Quick Start"
 echo "=================================="
 echo ""
 
-# Check kubectl
+# Check kubectl and helm
 if ! command -v kubectl &> /dev/null; then
     echo "❌ kubectl not found. Install Docker Desktop or minikube first."
     exit 1
 fi
 
+if ! command -v helm &> /dev/null; then
+    echo "❌ helm not found. Install helm first: brew install helm"
+    exit 1
+fi
+
 echo "✅ kubectl found"
 kubectl version --client
+echo "✅ helm found"
+helm version --short
 
 echo ""
 echo "📋 Cluster status:"
@@ -28,8 +35,15 @@ echo "🔄 Setting up ArgoCD namespace..."
 kubectl create namespace argocd || true
 
 echo ""
-echo "📦 Installing ArgoCD..."
-kubectl apply -n argocd --server-side --force-conflicts -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+echo "📦 Adding ArgoCD Helm repository..."
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+
+echo ""
+echo "📦 Installing ArgoCD via Helm..."
+helm install argocd argo/argo-cd -n argocd \
+  --values manifests/argocd/values.yaml \
+  --wait --timeout 5m
 
 echo ""
 echo "⏳ Waiting for ArgoCD to be ready (this takes ~60 seconds)..."
@@ -38,10 +52,6 @@ kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argoc
     echo "   kubectl get pods -n argocd"
     exit 1
 }
-
-echo ""
-echo "⚙️  Applying ArgoCD configuration..."
-kubectl apply -f manifests/argocd/argocd-config.yaml
 
 echo ""
 echo "📦 Bootstrapping with AppProject and root application..."
