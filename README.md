@@ -62,16 +62,16 @@ All services are accessible via hostname routing (requires port-forward and `/et
 
 | Service | URL |
 |---------|-----|
-| ArgoCD | https://argocd.local:8080 |
-| Grafana | http://grafana.local:8080 |
-| Prometheus | http://prometheus.local:8080 |
-| Dashboard UI | http://dashboard.local:8080 |
+| ArgoCD | https://argocd.local |
+| Grafana | http://grafana.local |
+| Prometheus | http://prometheus.local |
+| Dashboard UI | http://dashboard.local |
 
 ### Access Services
 
-1. **Start port-forward**:
+1. **Start port-forward** (requires sudo for ports 80/443):
    ```bash
-   kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 8080:80 8443:443
+   sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443
    ```
 
 2. **Add hostname entries to `/etc/hosts`**:
@@ -83,10 +83,10 @@ All services are accessible via hostname routing (requires port-forward and `/et
    ```
 
 3. **Access services**:
-   - ArgoCD: https://argocd.local:8080 (auth disabled)
-   - Grafana: http://grafana.local:8080
-   - Prometheus: http://prometheus.local:8080
-   - Dashboard: http://dashboard.local:8080
+   - ArgoCD: https://argocd.local (auth disabled)
+   - Grafana: http://grafana.local
+   - Prometheus: http://prometheus.local
+   - Dashboard: http://dashboard.local
 
 ## Deploying Applications
 
