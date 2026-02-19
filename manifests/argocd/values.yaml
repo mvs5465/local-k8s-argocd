@@ -7,22 +7,21 @@ server:
   extraArgs:
     - --insecure
 
-# ArgoCD configuration
-configs:
-  cm:
-    # Disable authentication for local development
-    server.disable.auth: "true"
-
   # Ingress configuration
   ingress:
     enabled: true
     ingressClassName: nginx
-    hosts:
-      - argocd.local
+    hostname: argocd.local
     paths:
       - /
     pathType: Prefix
-    tls: []
+    tls: false
+
+# ArgoCD configuration
+configs:
+  cm:
+    # Disable authentication for local development
+    admin.enabled: "false"
 
 # Global configuration
 global:
