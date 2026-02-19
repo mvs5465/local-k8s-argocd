@@ -41,7 +41,7 @@ helm repo update
 
 echo ""
 echo "📦 Installing ArgoCD via Helm..."
-helm install argocd argo/argo-cd -n argocd \
+helm upgrade --install argocd argo/argo-cd -n argocd \
   --values manifests/argocd/values.yaml \
   --wait --timeout 5m
 
