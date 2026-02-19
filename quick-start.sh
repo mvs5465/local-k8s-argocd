@@ -86,6 +86,6 @@ echo "   Open: https://argocd.local"
 echo "   Admin password: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | pbcopy"
 echo ""
 
-echo "📚 All services are now running via ArgoCD:"
-echo "   - See README.md for port-forwarding and architecture"
+echo "📚 Port forwarding needed:"
+echo "   sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443"
 echo ""
