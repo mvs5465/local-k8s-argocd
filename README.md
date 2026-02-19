@@ -58,26 +58,35 @@ This installs ArgoCD in the cluster. The `/tmp/files` directory on the Colima no
 
 ## Services
 
-All services are accessible via hostname routing (requires `/etc/hosts` entries):
+All services are accessible via hostname routing (requires port-forward and `/etc/hosts` entries):
 
 | Service | URL |
 |---------|-----|
-| ArgoCD | https://argocd.local |
-| Grafana | http://grafana.local |
-| Prometheus | http://prometheus.local |
-| Dashboard UI | http://dashboard.local |
-| File Server | http://localhost:30080 |
+| ArgoCD | https://argocd.local:8080 |
+| Grafana | http://grafana.local:8080 |
+| Prometheus | http://prometheus.local:8080 |
+| Dashboard UI | http://dashboard.local:8080 |
 
-### Setup Hostname Routing
+### Access Services
 
-Add these entries to your `/etc/hosts` file:
+1. **Start port-forward**:
+   ```bash
+   kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 8080:80 8443:443
+   ```
 
-```
-127.0.0.1 argocd.local
-127.0.0.1 grafana.local
-127.0.0.1 prometheus.local
-127.0.0.1 dashboard.local
-```
+2. **Add hostname entries to `/etc/hosts`**:
+   ```
+   127.0.0.1 argocd.local
+   127.0.0.1 grafana.local
+   127.0.0.1 prometheus.local
+   127.0.0.1 dashboard.local
+   ```
+
+3. **Access services**:
+   - ArgoCD: https://argocd.local:8080 (auth disabled)
+   - Grafana: http://grafana.local:8080
+   - Prometheus: http://prometheus.local:8080
+   - Dashboard: http://dashboard.local:8080
 
 ## Deploying Applications
 
