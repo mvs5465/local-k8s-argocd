@@ -83,7 +83,7 @@ echo ""
 
 echo "🌐 To access ArgoCD UI:"
 echo "   Open: https://argocd.local"
-echo "   (No login required - auth disabled for local dev)"
+echo "   Admin password: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | pbcopy"
 echo ""
 
 echo "📚 All services are now running via ArgoCD:"
