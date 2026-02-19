@@ -22,6 +22,11 @@ server:
     pathType: Prefix
     tls: false
 
+# Dex Configuration
+# Dex is disabled as auth is handled by server.disable.auth
+dex:
+  enabled: false
+
 # Global configuration
 global:
   domain: argocd.local
