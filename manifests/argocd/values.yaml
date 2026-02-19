@@ -3,13 +3,15 @@
 
 # ArgoCD Server Configuration
 server:
-  # Disable authentication for local development
-  config:
-    server.disable.auth: "true"
-
   # Command line parameters
   extraArgs:
     - --insecure
+
+# ArgoCD configuration
+configs:
+  cm:
+    # Disable authentication for local development
+    server.disable.auth: "true"
 
   # Ingress configuration
   ingress:
