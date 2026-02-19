@@ -7,6 +7,10 @@ server:
   config:
     server.disable.auth: "true"
 
+  # Command line parameters
+  extraArgs:
+    - --insecure
+
   # Ingress configuration
   ingress:
     enabled: true
@@ -17,9 +21,6 @@ server:
       - /
     pathType: Prefix
     tls: []
-    annotations:
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-      nginx.ingress.kubernetes.io/ssl-redirect: "false"
 
 # Global configuration
 global:
