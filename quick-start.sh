@@ -54,8 +54,12 @@ kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argoc
 }
 
 echo ""
-echo "📦 Bootstrapping with AppProject and root application..."
-kubectl apply -f manifests/argocd/appproject.yaml -f manifests/argocd/root-app.yaml
+echo "📦 Applying AppProject..."
+kubectl apply -f manifests/argocd/appproject.yaml
+
+echo ""
+echo "📦 Bootstrapping with root application..."
+kubectl apply -f manifests/argocd/root-app.yaml
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
