@@ -3,8 +3,11 @@
 ## [Unreleased]
 
 ### Added
-- Homepage and Uptime Kuma helm repos whitelisted in AppProject
+- Homepage helm repo whitelisted in AppProject
 - `services` namespace whitelisted in AppProject destinations
+
+### Changed
+- Replaced Uptime Kuma with Gatus for uptime monitoring (fully config-driven, no UI setup wizard)
 
 ### Changed
 - Implemented app-of-apps pattern: root application now points to manifests/argocd directory to auto-discover and manage child applications
