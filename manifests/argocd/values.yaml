@@ -1,0 +1,23 @@
+# ArgoCD Helm Chart Values
+# Reference: https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+
+# ArgoCD Server Configuration
+server:
+  # Disable authentication for local development
+  config:
+    server.disable.auth: "true"
+
+  # Ingress configuration
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    hosts:
+      - argocd.local
+    paths:
+      - /
+    pathType: Prefix
+    tls: []
+
+# Global configuration
+global:
+  domain: argocd.local
