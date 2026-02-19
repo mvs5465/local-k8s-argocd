@@ -9,6 +9,7 @@ spec:
   sourceRepos:
   - 'https://github.com/mvs5465/local-k8s-argocd'
   - 'https://github.com/mvs5465/local-k8s-apps'
+  - 'https://github.com/TwiN/gatus'
   - 'https://grafana.github.io/helm-charts'
   - 'https://prometheus-community.github.io/helm-charts'
   - 'https://kubernetes.github.io/ingress-nginx'
