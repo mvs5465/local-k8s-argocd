@@ -20,11 +20,7 @@ server:
     paths:
       - /
     pathType: Prefix
-<<<<<<< Updated upstream
-    tls: []
-=======
     tls: false
->>>>>>> Stashed changes
 
 # Global configuration
 global:
