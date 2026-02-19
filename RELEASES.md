@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+- Homepage and Uptime Kuma helm repos whitelisted in AppProject
+- `services` namespace whitelisted in AppProject destinations
+
 ### Changed
 - Implemented app-of-apps pattern: root application now points to manifests/argocd directory to auto-discover and manage child applications
 - Simplified quick-start.sh: only apply appproject and root app; child applications are auto-created by root app
