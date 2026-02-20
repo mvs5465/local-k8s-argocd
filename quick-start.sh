@@ -58,15 +58,15 @@ echo "🔑 Configuring GitHub credentials for ArgoCD..."
 GITHUB_TOKEN_FILE="$HOME/.secrets/github/token"
 if [ -f "$GITHUB_TOKEN_FILE" ]; then
     GITHUB_TOKEN=$(cat "$GITHUB_TOKEN_FILE")
+    kubectl delete secret argocd-repo-creds -n argocd --ignore-not-found
     kubectl create secret generic argocd-repo-creds \
       -n argocd \
       --from-literal=type=git \
       --from-literal=url=https://github.com/mvs5465 \
       --from-literal=username=mvs5465 \
-      --from-literal=password="$GITHUB_TOKEN" \
-      --dry-run=client -o yaml | kubectl apply -f -
+      --from-literal=password="$GITHUB_TOKEN"
     kubectl label secret argocd-repo-creds -n argocd \
-      argocd.argoproj.io/secret-type=repo-creds --overwrite
+      argocd.argoproj.io/secret-type=repo-creds
     echo "✅ GitHub credentials configured"
 else
     echo "⚠️  No token found at $GITHUB_TOKEN_FILE — skipping. ArgoCD will use unauthenticated access."
