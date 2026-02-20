@@ -27,10 +27,10 @@ server:
 dex:
   enabled: false
 
-# Repo polling interval (authenticated = 5000 req/hr limit, 30s is safe)
+# Repo polling interval (authenticated = 5000 req/hr limit, 10s = 360 req/hr)
 configs:
   cm:
-    timeout.reconciliation: 30s
+    timeout.reconciliation: 10s
 
 # Global configuration
 global:
