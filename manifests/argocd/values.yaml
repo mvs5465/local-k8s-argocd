@@ -27,6 +27,11 @@ server:
 dex:
   enabled: false
 
+# Repo polling interval (authenticated = 5000 req/hr limit, 10s = 360 req/hr)
+configs:
+  cm:
+    timeout.reconciliation: 10s
+
 # Global configuration
 global:
   domain: argocd.local
