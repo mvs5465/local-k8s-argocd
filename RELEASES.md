@@ -2,20 +2,36 @@
 
 ## [Unreleased]
 
+## [v1.0.0] - 2026-02-20 - Phase 1 Complete: Baseline Cluster
+
 ### Added
-- Homepage helm repo whitelisted in AppProject
-- `services` namespace whitelisted in AppProject destinations
+- GitHub token authentication for ArgoCD (reads from `~/.secrets/github/token`)
+- `argocd-repo-creds` secret auto-creation in quick-start.sh with proper labeling
+- Fast ArgoCD reconciliation: 10s polling interval (360 req/hr, safe with authenticated GitHub access)
 
 ### Changed
-- Replaced Uptime Kuma with Gatus for uptime monitoring (fully config-driven, no UI setup wizard)
-
-### Changed
-- Implemented app-of-apps pattern: root application now points to manifests/argocd directory to auto-discover and manage child applications
-- Simplified quick-start.sh: only apply appproject and root app; child applications are auto-created by root app
+- Reconciliation timeout: 3min → 10s (requires authenticated GitHub access)
+- quick-start.sh now idempotent: deletes + recreates repo-creds secret, labels guaranteed
 
 ### Fixed
-- fileserver pod mounting issue: /tmp/files directory must exist on colima node before deployment (setup requirement, not code issue)
-- Grafana and Prometheus OutOfSync errors: AppProject now allows ClusterRole and ClusterRoleBinding resources required by Helm charts
+- ArgoCD repo credential secret labeling: now uses delete+create instead of apply+label for atomicity
+
+### Infrastructure Stability
+- **Idempotent bootstrap**: quick-start.sh can safely re-run on existing clusters
+- **All services self-healing**: ArgoCD auto-sync enabled with prune + self-heal
+- **Resource-optimized**: Cluster utilization ~35% (1.4GB used of 4GB available)
+- **Custom dashboards**: Replaced broken imported gnetId dashboards with verified, maintainable custom versions
+
+### Phase 1 Summary
+This release marks a complete, working baseline for the local Kubernetes learning cluster:
+- ✅ Idempotent infrastructure (re-run quick-start.sh anytime, guaranteed consistent state)
+- ✅ Fast feedback loop (10s config sync, no manual ArgoCD syncs needed)
+- ✅ Production patterns (resource limits, security contexts, app-of-apps architecture)
+- ✅ Monitoring + logging (Prometheus, Grafana, Loki, Promtail)
+- ✅ Service discovery (Homepage dashboard with live k8s widget)
+- Phase 2: Hardening, Raspberry Pi migration strategy, webhook-based syncing
+
+## [v0.2.0] - 2026-02-16
 
 ## [v0.2.0] - 2026-02-16
 
