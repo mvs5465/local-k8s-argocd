@@ -54,6 +54,25 @@ kubectl wait -n argocd --for=condition=ready pod -l app.kubernetes.io/name=argoc
 }
 
 echo ""
+echo "🔑 Configuring GitHub credentials for ArgoCD..."
+GITHUB_TOKEN_FILE="$HOME/.secrets/github/token"
+if [ -f "$GITHUB_TOKEN_FILE" ]; then
+    GITHUB_TOKEN=$(cat "$GITHUB_TOKEN_FILE")
+    kubectl create secret generic argocd-repo-creds \
+      -n argocd \
+      --from-literal=type=git \
+      --from-literal=url=https://github.com/mvs5465 \
+      --from-literal=username=mvs5465 \
+      --from-literal=password="$GITHUB_TOKEN" \
+      --dry-run=client -o yaml | kubectl apply -f -
+    kubectl label secret argocd-repo-creds -n argocd \
+      argocd.argoproj.io/secret-type=repo-creds --overwrite
+    echo "✅ GitHub credentials configured"
+else
+    echo "⚠️  No token found at $GITHUB_TOKEN_FILE — skipping. ArgoCD will use unauthenticated access."
+fi
+
+echo ""
 echo "📦 Applying AppProject..."
 kubectl apply -f manifests/argocd/appproject.yaml
 
