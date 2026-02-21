@@ -1,22 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root
+  name: appproject
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   project: cluster
-
   source:
     repoURL: https://github.com/mvs5465/local-k8s-argocd
     targetRevision: main
     path: manifests/argocd
-
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
-
   syncPolicy:
     automated:
       prune: true
@@ -29,3 +26,5 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
+  # Manual sync strategy to prevent bootstrap loops
+  # This app watches appproject.yaml changes and applies them
