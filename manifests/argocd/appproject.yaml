@@ -16,6 +16,7 @@ spec:
   - 'https://jameswynn.github.io/helm-charts'
   - 'https://helm.irsigler.cloud'
   - 'https://jellyfin.github.io/jellyfin-helm'
+  - 'https://charts.js.wiki'
 
   destinations:
   - namespace: 'default'
