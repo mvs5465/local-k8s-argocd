@@ -77,13 +77,14 @@ echo "📦 Applying AppProject..."
 kubectl apply -f manifests/config/appproject.yaml
 
 echo ""
-echo "📦 Bootstrapping with root application..."
-kubectl apply -f manifests/argocd/root-app.yaml
+echo "📦 Bootstrapping AppProject and applications..."
+kubectl apply -f manifests/argocd/appproject-app.yaml
+kubectl apply -f manifests/argocd/app-of-apps-app.yaml
 
 echo ""
 echo "⏳ Waiting for applications to sync (this takes ~30 seconds)..."
 for i in {1..60}; do
-    SYNC_STATUS=$(kubectl get application root -n argocd -o jsonpath='{.status.sync.status}' 2>/dev/null)
+    SYNC_STATUS=$(kubectl get application app-of-apps -n argocd -o jsonpath='{.status.sync.status}' 2>/dev/null)
     if [ "$SYNC_STATUS" = "Synced" ]; then
         break
     fi
@@ -91,7 +92,7 @@ for i in {1..60}; do
 done
 
 if [ "$SYNC_STATUS" != "Synced" ]; then
-    echo "⚠️  Root app didn't sync. Check status with:"
+    echo "⚠️  Applications didn't sync. Check status with:"
     echo "   kubectl get applications -n argocd"
     exit 1
 fi
