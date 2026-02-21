@@ -9,7 +9,7 @@ spec:
   sourceRepos:
   - 'https://github.com/mvs5465/local-k8s-argocd'
   - 'https://github.com/mvs5465/local-k8s-apps'
-  - 'https://bjw-s.github.io/helm-charts'
+  - 'https://bjw-s-labs.github.io/helm-charts'
   - 'https://charts.external-secrets.io'
   - 'https://twin.github.io/helm-charts'
   - 'https://grafana.github.io/helm-charts'
