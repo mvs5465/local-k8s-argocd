@@ -100,9 +100,9 @@ elif [ -f "$SECRETS_DIR/secret_key" ] && [ -f "$SECRETS_DIR/utils_secret" ] && [
     kubectl delete secret outline-secrets -n outline --ignore-not-found
     kubectl create secret generic outline-secrets \
       -n outline \
-      --from-file="$SECRETS_DIR/secret_key" \
-      --from-file="$SECRETS_DIR/utils_secret" \
-      --from-file="$SECRETS_DIR/postgres_password" \
+      --from-literal=secret-key="$(cat "$SECRETS_DIR/secret_key")" \
+      --from-literal=utils-secret="$(cat "$SECRETS_DIR/utils_secret")" \
+      --from-literal=postgres-password="$(cat "$SECRETS_DIR/postgres_password")" \
       --from-literal=postgres-user="$(cat "$SECRETS_DIR/postgres_user" 2>/dev/null || echo "outline")" \
       --from-literal=postgres-db="$(cat "$SECRETS_DIR/postgres_db" 2>/dev/null || echo "outline")" \
       --from-literal=database-url="postgresql://$(cat "$SECRETS_DIR/postgres_user" 2>/dev/null || echo "outline"):$(cat "$SECRETS_DIR/postgres_password")@outline-postgres:5432/$(cat "$SECRETS_DIR/postgres_db" 2>/dev/null || echo "outline")"
