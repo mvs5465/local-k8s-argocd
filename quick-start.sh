@@ -77,6 +77,42 @@ echo "📦 Applying AppProject..."
 kubectl apply -f manifests/config/appproject.yaml
 
 echo ""
+echo "🔐 Setting up Outline secrets..."
+SECRETS_DIR="$HOME/.secrets/outline"
+if [ ! -d "$SECRETS_DIR" ]; then
+    echo "⚠️  No secrets found at $SECRETS_DIR"
+    echo "   Create the directory and add these files:"
+    echo "   - secret_key (64 hex characters)"
+    echo "   - utils_secret (64 hex characters)"
+    echo "   - postgres_password"
+    echo "   - postgres_user (default: outline)"
+    echo "   - postgres_db (default: outline)"
+    echo ""
+    echo "   Generate secret_key: openssl rand -hex 32"
+    echo "   Generate utils_secret: openssl rand -hex 32"
+    echo ""
+    echo "⚠️  Outline will not be available until secrets are configured."
+elif [ -f "$SECRETS_DIR/secret_key" ] && [ -f "$SECRETS_DIR/utils_secret" ] && [ -f "$SECRETS_DIR/postgres_password" ]; then
+    echo "✅ Outline secrets directory found"
+    echo ""
+    echo "📦 Creating Kubernetes secret for Outline..."
+    kubectl create namespace outline || true
+    kubectl delete secret outline-secrets -n outline --ignore-not-found
+    kubectl create secret generic outline-secrets \
+      -n outline \
+      --from-file="$SECRETS_DIR/secret_key" \
+      --from-file="$SECRETS_DIR/utils_secret" \
+      --from-file="$SECRETS_DIR/postgres_password" \
+      --from-literal=postgres-user="$(cat "$SECRETS_DIR/postgres_user" 2>/dev/null || echo "outline")" \
+      --from-literal=postgres-db="$(cat "$SECRETS_DIR/postgres_db" 2>/dev/null || echo "outline")" \
+      --from-literal=database-url="postgresql://$(cat "$SECRETS_DIR/postgres_user" 2>/dev/null || echo "outline"):$(cat "$SECRETS_DIR/postgres_password")@outline-postgres-0:5432/$(cat "$SECRETS_DIR/postgres_db" 2>/dev/null || echo "outline")"
+    echo "✅ Outline secrets created"
+else
+    echo "⚠️  Incomplete secrets in $SECRETS_DIR (missing required files)"
+    echo "   Required: secret_key, utils_secret, postgres_password"
+fi
+
+echo ""
 echo "📦 Bootstrapping AppProject and applications..."
 kubectl apply -f manifests/argocd/appproject-app.yaml
 kubectl apply -f manifests/argocd/app-of-apps-app.yaml
