@@ -16,7 +16,7 @@ server:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - argocd.local
+      - argocd.lan
     paths:
       - /
     pathType: Prefix
@@ -34,4 +34,4 @@ configs:
 
 # Global configuration
 global:
-  domain: argocd.local
+  domain: argocd.lan
