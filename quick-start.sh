@@ -42,7 +42,7 @@ helm repo update
 echo ""
 echo "📦 Installing ArgoCD via Helm..."
 helm upgrade --install argocd argo/argo-cd -n argocd \
-  --values manifests/argocd/values.yaml \
+  --values manifests/config/values.yaml \
   --wait --timeout 5m
 
 echo ""
@@ -74,7 +74,7 @@ fi
 
 echo ""
 echo "📦 Applying AppProject..."
-kubectl apply -f manifests/argocd/appproject.yaml
+kubectl apply -f manifests/config/appproject.yaml
 
 echo ""
 echo "📦 Bootstrapping with root application..."
