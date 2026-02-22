@@ -49,3 +49,5 @@ spec:
     kind: ValidatingWebhookConfiguration
   - group: 'networking.k8s.io'
     kind: IngressClass
+  - group: 'monitoring.coreos.com'
+    kind: ServiceMonitor
