@@ -3,8 +3,6 @@
 
 # ArgoCD Server Configuration
 server:
-  config:
-    server.disable.auth: "true"
 
   # Command line parameters
   extraArgs:
