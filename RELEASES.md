@@ -2,6 +2,24 @@
 
 ## [Unreleased]
 
+## [v1.2.0] - 2026-02-21 - AppProject Stabilization
+
+### Fixed
+- quick-start.sh secret key names alignment with actual environment variables
+- Postgres hostname in database URL configuration
+- AppProject Helm repository URL to match app-template repository location
+- Removed root app dependency to make AppProject independent and self-managed
+
+### Added
+- Outline namespace whitelisting in AppProject
+- App-template chart repository support
+- External Secrets Operator whitelisting for managed secret provisioning
+- Outline secrets setup documentation in quick-start.sh
+
+### Changed
+- AppProject now self-managed with 10s sync interval for faster feedback
+- Simplified AppProject architecture by removing circular dependency
+
 ## [v1.0.0] - 2026-02-20 - Phase 1 Complete: Baseline Cluster
 
 ### Added
