@@ -38,13 +38,10 @@ The script installs ArgoCD and points it to the apps repo.
 ## Architecture
 
 ```
-local-k8s-argocd/
+Bootstrap setup:
 ├── ArgoCD (Helm installation)
-├── AppProject
-├── Root Applications
-│   ├── argocd-app
-│   └── apps-app → [local-k8s-apps]
-└── Nginx Ingress Controller
+├── AppProject-App (Self-manages ArgoCD config)
+└── App-of-Apps-App (Watches local-k8s-apps)
 ```
 
 See `CLAUDE.md` for development notes.
