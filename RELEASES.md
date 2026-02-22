@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [v1.3.0] - 2026-02-22 - ArgoCD Metrics & Quick-Start Automation
+
+### Added
+- **ArgoCD metrics services** — enabled dedicated metrics services for server, controller, repo-server, applicationset-controller
+- **Quick-start automation** — port-forward runs automatically after homepage is ready
+- **Quick-start pbcopy** — ArgoCD admin password copied to clipboard automatically
+
+### Fixed
+- ArgoCD values.yaml structure — extraArgs and ingress were detached from server block causing --insecure to bleed into applicationset-controller
+- quick-start.sh port-forward output redirection removed to surface errors
+- quick-start.sh waits for homepage pod (not service) before port-forward
+
 ## [v1.2.0] - 2026-02-21 - AppProject Stabilization
 
 ### Fixed
