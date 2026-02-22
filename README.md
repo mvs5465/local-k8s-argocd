@@ -8,7 +8,7 @@ ArgoCD configuration for a local Kubernetes cluster. Pair with [`local-k8s-apps`
 
 ```bash
 brew install colima docker kubectl
-colima start --kubernetes --cpu 4 --memory 4
+colima start --kubernetes --cpu 4 --memory 8 --mount /tmp/files:/tmp/files --mount ~/outline:w --mount ~/.secrets:/mnt/secrets:ro
 ```
 
 ### Install
@@ -33,27 +33,15 @@ The script installs ArgoCD and points it to the apps repo.
    127.0.0.1 *.lan
    ```
 
-3. **Visit**:
-   - Homepage: http://homepage.lan (main dashboard with links to all services)
-   - ArgoCD: https://argocd.lan
-   - Grafana: http://grafana.lan
-   - Prometheus: http://prometheus.lan
-   - Gatus: http://gatus.lan (uptime monitoring)
-   - Jellyfin: http://jellyfin.lan (media server)
-   - Outline: http://outline.lan (wiki)
+3. **Visit**: http://homepage.lan
 
 ## Architecture
 
-- **Two-repo design**: Infrastructure (this repo, stable) + Applications (companion repo, active)
-- **ArgoCD**: Helm-installed with fast 10s reconciliation
-- **App-of-apps**: Parent apps discover children automatically
-- **Ingress**: Nginx controller routing to all services
-
-## What's Inside
-
-- ArgoCD installation + configuration
-- AppProject + root applications pointing to `local-k8s-apps`
-- Nginx Ingress Controller
-- GitHub token authentication for faster polling
+```
+Bootstrap setup:
+├── ArgoCD (Helm installation)
+├── AppProject-App (Self-manages ArgoCD config)
+└── App-of-Apps-App (Watches local-k8s-apps)
+```
 
 See `CLAUDE.md` for development notes.

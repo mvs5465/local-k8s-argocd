@@ -26,5 +26,3 @@ spec:
         duration: 5s
         factor: 2
         maxDuration: 3m
-  # Manual sync strategy to prevent bootstrap loops
-  # This app watches appproject.yaml changes and applies them

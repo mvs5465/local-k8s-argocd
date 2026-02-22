@@ -3,9 +3,6 @@
 
 # ArgoCD Server Configuration
 server:
-  # Disable authentication for local development
-  config:
-    server.disable.auth: "true"
 
   # Command line parameters
   extraArgs:
@@ -38,7 +35,6 @@ applicationSet:
     enabled: true
 
 # Dex Configuration
-# Dex is disabled as auth is handled by server.disable.auth
 dex:
   enabled: false
 
