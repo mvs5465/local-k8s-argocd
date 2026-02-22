@@ -19,6 +19,7 @@ spec:
   - 'https://helm.irsigler.cloud'
   - 'https://jellyfin.github.io/jellyfin-helm'
   - 'https://charts.js.wiki'
+  - 'https://helm.otwld.com/'
 
   destinations:
   - namespace: 'default'
@@ -34,6 +35,8 @@ spec:
   - namespace: 'services'
     server: https://kubernetes.default.svc
   - namespace: 'outline'
+    server: https://kubernetes.default.svc
+  - namespace: 'ai'
     server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
