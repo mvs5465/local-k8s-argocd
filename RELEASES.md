@@ -33,8 +33,6 @@ This release marks a complete, working baseline for the local Kubernetes learnin
 
 ## [v0.2.0] - 2026-02-16
 
-## [v0.2.0] - 2026-02-16
-
 ### Added
 - ArgoCD installation now codified in `manifests/argocd-install.yaml` via installer Job
 - Architecture diagram in README showing cluster structure and port-forwarding
