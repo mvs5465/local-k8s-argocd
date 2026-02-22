@@ -136,7 +136,7 @@ fi
 echo ""
 echo "✅ All applications deployed!"
 echo ""
-echo "⏳ Waiting for homepage to be ready..."
+echo "⏳ Waiting for homepage pod to be ready..."
 kubectl wait -n services --for=condition=ready pod -l app.kubernetes.io/name=homepage --timeout=300s || {
     echo "⚠️  Timeout waiting for homepage. Check status with:"
     echo "   kubectl get pods -n services"
@@ -144,20 +144,15 @@ kubectl wait -n services --for=condition=ready pod -l app.kubernetes.io/name=hom
 }
 
 echo ""
-echo "🔐 Setting up port-forward and copying ArgoCD password..."
-sudo echo "starting-port-forward" && sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443 > /dev/null 2>&1 &
+echo "⏳ Getting ArgoCD admin password..."
+sleep 10
+ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+echo "$ARGOCD_PASSWORD" | pbcopy
+echo "✅ ArgoCD admin password copied to clipboard (user: admin)"
 
 echo ""
-echo "⏳ Waiting for ArgoCD admin secret to be available..."
-for i in {1..30}; do
-    if kubectl -n argocd get secret argocd-initial-admin-secret > /dev/null 2>&1; then
-        ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-        echo "$ARGOCD_PASSWORD" | pbcopy
-        echo "✅ ArgoCD admin password copied to clipboard"
-        break
-    fi
-    sleep 1
-done
+echo "🔐 Setting up port-forward..."
+sudo echo "starting-port-forward" && sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443 > /dev/null 2>&1 &
 
 echo ""
 echo "📌 Next steps:"
