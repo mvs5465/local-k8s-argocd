@@ -31,6 +31,11 @@ dex:
 configs:
   cm:
     timeout.reconciliation: 10s
+  repositories:
+    prometheus-community:
+      url: https://prometheus-community.github.io/helm-charts
+      type: helm
+      name: prometheus-community
 
 # Global configuration
 global:
