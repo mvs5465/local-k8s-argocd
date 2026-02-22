@@ -136,16 +136,38 @@ fi
 echo ""
 echo "✅ All applications deployed!"
 echo ""
+echo "⏳ Waiting for nginx-ingress controller to be ready..."
+kubectl wait -n ingress-nginx --for=condition=ready pod -l app.kubernetes.io/name=ingress-nginx-controller --timeout=300s || {
+    echo "⚠️  Timeout waiting for nginx-ingress. Check status with:"
+    echo "   kubectl get pods -n ingress-nginx"
+    exit 1
+}
+
+echo ""
+echo "🔐 Setting up port-forward and copying ArgoCD password..."
+sudo echo "starting-port-forward" && sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443 > /dev/null 2>&1 &
+
+echo ""
+echo "⏳ Waiting for ArgoCD admin secret to be available..."
+for i in {1..30}; do
+    if kubectl -n argocd get secret argocd-initial-admin-secret > /dev/null 2>&1; then
+        ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+        echo "$ARGOCD_PASSWORD" | pbcopy
+        echo "✅ ArgoCD admin password copied to clipboard"
+        break
+    fi
+    sleep 1
+done
+
+echo ""
 echo "📌 Next steps:"
 echo ""
-echo "1. Start port-forward (required to access services):"
-echo "   sudo echo port-forward && sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443 > /dev/null 2>&1 &"
+echo "1. ✅ Port-forward is running (80:80, 443:443)"
 echo ""
 echo "2. Add wildcard hostname to /etc/hosts:"
 echo "   127.0.0.1 *.lan"
 echo ""
-echo "3. Get ArgoCD admin password:"
-echo "   kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath=\"{.data.password}\" | base64 -d"
+echo "3. ✅ ArgoCD admin password copied to clipboard (user: admin)"
 echo ""
 echo "4. Open browser:"
 echo "   http://homepage.lan"
