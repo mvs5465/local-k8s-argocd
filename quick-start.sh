@@ -136,10 +136,10 @@ fi
 echo ""
 echo "✅ All applications deployed!"
 echo ""
-echo "⏳ Waiting for nginx-ingress controller to be ready..."
-kubectl wait -n ingress-nginx --for=condition=ready pod -l app.kubernetes.io/name=ingress-nginx-controller --timeout=300s || {
-    echo "⚠️  Timeout waiting for nginx-ingress. Check status with:"
-    echo "   kubectl get pods -n ingress-nginx"
+echo "⏳ Waiting for homepage to be ready..."
+kubectl wait -n services --for=condition=ready pod -l app.kubernetes.io/name=homepage --timeout=300s || {
+    echo "⚠️  Timeout waiting for homepage. Check status with:"
+    echo "   kubectl get pods -n services"
     exit 1
 }
 
