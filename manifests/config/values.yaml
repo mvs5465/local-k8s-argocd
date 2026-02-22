@@ -6,6 +6,20 @@ server:
   # Disable authentication for local development
   config:
     server.disable.auth: "true"
+  metrics:
+    enabled: true
+
+controller:
+  metrics:
+    enabled: true
+
+repoServer:
+  metrics:
+    enabled: true
+
+applicationSet:
+  metrics:
+    enabled: true
 
   # Command line parameters
   extraArgs:
