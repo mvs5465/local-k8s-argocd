@@ -30,7 +30,7 @@ The script installs ArgoCD and points it to the apps repo.
 
 2. **Add to `/etc/hosts`**:
    ```
-   127.0.0.1 argocd.lan grafana.lan prometheus.lan gatus.lan homepage.lan jellyfin.lan outline.lan
+   127.0.0.1 *.lan
    ```
 
 3. **Visit**:
