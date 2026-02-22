@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [v1.3.1] - 2026-02-22 - Documentation Cleanup
+
+### Changed
+- Improved README readability with simplified architecture diagram
+- Updated colima startup command with all necessary mounts and 8GB memory
+- Simplified service access section to link directly to homepage
+- Removed redundant "What's Inside" section
+
+### Removed
+- Misleading authentication comments from values.yaml
+- Bootstrap loop comment from appproject-app.yaml
+- architecture.svg file (replaced with text-based diagram)
+
 ## [v1.3.0] - 2026-02-22 - ArgoCD Metrics & Quick-Start Automation
 
 ### Added
