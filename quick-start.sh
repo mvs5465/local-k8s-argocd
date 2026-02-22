@@ -152,7 +152,7 @@ echo "✅ ArgoCD admin password copied to clipboard (user: admin)"
 
 echo ""
 echo "🔐 Setting up port-forward..."
-sudo echo "starting-port-forward" && sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443 > /dev/null 2>&1 &
+sudo echo "starting-port-forward" && sudo kubectl port-forward -n ingress-nginx svc/nginx-ingress-ingress-nginx-controller 80:80 443:443 &
 
 echo ""
 echo "📌 Next steps:"
